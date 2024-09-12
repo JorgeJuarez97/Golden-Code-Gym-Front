@@ -1,5 +1,8 @@
+import NavbarC from "./components/NavbarC";
+import "./App.css";
+
 const App = () => {
-  return <h1>Hola</h1>;
+  return <NavbarC />;
 };
 
 export default App;
