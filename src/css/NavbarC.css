@@ -1,0 +1,22 @@
+.navbar-gym {
+  background-color: gold;
+}
+
+.link-navbar {
+  color: black;
+}
+
+@media (min-width: 992px) {
+  .drop-lista:hover {
+    background-color: gold;
+    transition: all 0.2s;
+  }
+}
+
+@media (max-width: 767px) {
+  .drop-lista:active {
+    background-color: gold;
+    color: black;
+    transition: all 0.2s;
+  }
+}
