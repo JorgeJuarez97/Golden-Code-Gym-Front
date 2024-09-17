@@ -1,6 +1,7 @@
+import "./App.css";
 import NavbarC from "./components/NavbarC";
 import CarouselC from "./components/CarouselC";
-import "./App.css";
+import Planes from "./components/Planes";
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
       <NavbarC />
       <main>
         <CarouselC />
+        <Planes />
       </main>
     </>
   );
