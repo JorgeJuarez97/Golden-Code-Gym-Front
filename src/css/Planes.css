@@ -1,0 +1,83 @@
+.titulo-seccion {
+  text-align: center;
+  margin-top: 20px;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    76.3deg,
+    rgba(44, 62, 78, 1) 12.6%,
+    rgba(69, 103, 131, 1) 82.8%
+  );
+  color: white;
+}
+
+.titulo-seccion h1 {
+  margin-bottom: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.contenedor-plan {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  justify-content: center;
+}
+
+.plan {
+  padding: 10px;
+}
+
+.plan-card {
+  height: 350px;
+  background-image: linear-gradient(
+    76.3deg,
+    rgba(44, 62, 78, 1) 12.6%,
+    rgba(69, 103, 131, 1) 82.8%
+  );
+  color: white;
+}
+
+.cuerpo-plan {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titulo-plan {
+  font-size: 1.5rem;
+}
+
+.descripcion-plan {
+  font-size: 1.2rem;
+}
+
+.precio {
+  font-size: 1.8rem;
+}
+
+@media (max-width: 485px) and (min-width: 395px) {
+  .titulo-seccion {
+    width: 350px;
+  }
+}
+
+@media (max-width: 394px) and (min-width: 317px) {
+  .titulo-seccion {
+    width: 280px;
+  }
+}
+
+@media (max-width: 316px) and (min-width: 266px) {
+  .titulo-seccion {
+    width: 230px;
+  }
+}
+
+@media (max-width: 265px) {
+  .titulo-seccion {
+    width: 190px;
+  }
+}
