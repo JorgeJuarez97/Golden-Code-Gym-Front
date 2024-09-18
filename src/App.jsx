@@ -1,20 +1,13 @@
 import "./App.css";
-import NavbarC from "./components/NavbarC";
-import CarouselC from "./components/CarouselC";
-import Planes from "./components/Planes";
-import Infogym from "./components/Infogym";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router } from "react-router-dom";
+import RoutesViews from "./routes/RoutesViews";
 
 const App = () => {
   return (
     <>
-      <NavbarC />
-      <main>
-        <CarouselC />
-        <Infogym />
-        <Planes />
-      </main>
-      <Footer />
+      <Router>
+        <RoutesViews />
+      </Router>
     </>
   );
 };
