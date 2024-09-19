@@ -1,10 +1,10 @@
-import Container from "react-bootstrap/Container";
+import { Link } from "react-router-dom";
 import "../css/Footer.css";
 
 const Footer = () => {
   return (
     <>
-      <Container fluid className="footer">
+      <footer className="footer container-fluid">
         <div className="footer-copy">
           <div className="copy">
             &copy; 2024 Golden Code Gym | Todos los derechos reservados.
@@ -45,13 +45,21 @@ const Footer = () => {
             </a>
           </div>
           <div className="politicas">
-            <a href="./Paginas/error404.html">Politicas de privacidad</a>
-            <a href="./Paginas/error404.html">Administrar Cookies</a>
-            <a href="./Paginas/error404.html">Info</a>
-            <a href="./Paginas/error404.html">Ayuda</a>
+            <Link className="enlace" to="#">
+              Politicas de privacidad
+            </Link>
+            <Link className="enlace" to="#">
+              Administrar Cookies
+            </Link>
+            <Link className="enlace" to="#">
+              Info
+            </Link>
+            <Link className="enlace" to="#">
+              Ayuda
+            </Link>
           </div>
         </div>
-      </Container>
+      </footer>
     </>
   );
 };
