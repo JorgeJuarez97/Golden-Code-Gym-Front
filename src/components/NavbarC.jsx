@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../css/NavbarC.css";
+import { NavLink } from "react-router-dom";
 
 const NavbarC = () => {
   return (
@@ -21,37 +22,38 @@ const NavbarC = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto align-items-center">
-              <Nav.Link className="link-navbar" href="#home">
+              <NavLink className="link-navbar nav-link" to="/">
                 Inicio
-              </Nav.Link>
-              <Nav.Link className="link-navbar" href="#link">
+              </NavLink>
+              <NavLink className="link-navbar nav-link" to="#link">
                 Contacto
-              </Nav.Link>
-              <Nav.Link className="link-navbar" href="#link">
+              </NavLink>
+              <NavLink className="link-navbar nav-link" to="#link">
                 Sobre Nosotros
-              </Nav.Link>
-              <Nav.Link className="link-navbar" href="#link">
+              </NavLink>
+              <NavLink className="link-navbar nav-link" to="#link">
                 Clases
-              </Nav.Link>
+              </NavLink>
               <NavDropdown title="Productos" id="basic-nav-dropdown">
-                <NavDropdown.Item className="drop-lista" href="#action/3.1">
-                  Multivitaminicos
-                </NavDropdown.Item>
-                <NavDropdown.Item className="drop-lista" href="#action/3.2">
-                  Proteinas
-                </NavDropdown.Item>
-                <NavDropdown.Item className="drop-lista" href="#action/3.3">
-                  Creatinas
-                </NavDropdown.Item>
+                <NavLink to="#" className="link-drop">
+                  <NavDropdown.Item className="drop-lista">
+                    Suplementos
+                  </NavDropdown.Item>
+                </NavLink>
+                <NavLink to="#" className="link-drop">
+                  <NavDropdown.Item className="drop-lista">
+                    Indumentaria Deportiva
+                  </NavDropdown.Item>
+                </NavLink>
               </NavDropdown>
             </Nav>
             <Nav className="ms-auto align-items-center">
-              <Nav.Link className="link-navbar" href="#link">
+              <NavLink className="link-navbar nav-link" to="#link">
                 Iniciar Sesion
-              </Nav.Link>
-              <Nav.Link className="link-navbar" href="#link">
+              </NavLink>
+              <NavLink className="link-navbar nav-link" to="#link">
                 Registrarse
-              </Nav.Link>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
