@@ -5,6 +5,9 @@
 .link-navbar {
   color: black;
 }
+.link-drop {
+  text-decoration: none;
+}
 
 @media (min-width: 992px) {
   .drop-lista:hover {
