@@ -4,8 +4,14 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../css/NavbarC.css";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import ModalLogin from "./ModalLogin";
 
 const NavbarC = () => {
+  const [showModalLogin, setShowModalLogin] = useState(false);
+
+  const handleShow = () => setShowModalLogin(true);
+  const handleClose = () => setShowModalLogin(false);
   return (
     <>
       <Navbar expand="md" className="navbar-gym">
@@ -48,16 +54,17 @@ const NavbarC = () => {
               </NavDropdown>
             </Nav>
             <Nav className="ms-auto align-items-center">
-              <NavLink className="link-navbar nav-link" to="#link">
+              <NavLink className="link-navbar nav-link" onClick={handleShow}>
                 Iniciar Sesion
               </NavLink>
-              <NavLink className="link-navbar nav-link" to="#link">
+              <NavLink className="link-navbar nav-link" to="/registro">
                 Registrarse
               </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <ModalLogin show={showModalLogin} handleClose={handleClose} />
     </>
   );
 };

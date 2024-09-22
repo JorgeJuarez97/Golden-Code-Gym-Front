@@ -1,0 +1,38 @@
+.contenedor-formulario-registro {
+  width: 50%;
+  font-weight: bold;
+}
+
+.contenedor-formulario-login {
+  width: 100%;
+  font-weight: bold;
+}
+
+.contenedor-boton-registro {
+  display: flex;
+  justify-content: center;
+}
+
+.boton-registro {
+  width: 40%;
+}
+
+@media (max-width: 570px) and (min-width: 360px) {
+  .contenedor-formulario-registro {
+    width: 80%;
+  }
+
+  .boton-registro {
+    width: 60%;
+  }
+}
+
+@media (max-width: 359px) {
+  .contenedor-formulario-registro {
+    width: 100%;
+  }
+
+  .boton-registro {
+    width: 80%;
+  }
+}
