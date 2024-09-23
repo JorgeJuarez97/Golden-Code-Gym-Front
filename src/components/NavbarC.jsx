@@ -6,6 +6,7 @@ import "../css/NavbarC.css";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import ModalLogin from "./ModalLogin";
+import { LinkContainer } from "react-router-bootstrap";
 
 const NavbarC = () => {
   const [showModalLogin, setShowModalLogin] = useState(false);
@@ -41,16 +42,12 @@ const NavbarC = () => {
                 Clases
               </NavLink>
               <NavDropdown title="Productos" id="basic-nav-dropdown">
-                <NavLink to="#" className="link-drop">
-                  <NavDropdown.Item className="drop-lista">
-                    Suplementos
-                  </NavDropdown.Item>
-                </NavLink>
-                <NavLink to="#" className="link-drop">
-                  <NavDropdown.Item className="drop-lista">
-                    Indumentaria Deportiva
-                  </NavDropdown.Item>
-                </NavLink>
+                <LinkContainer to="/suplementos" className="drop-lista">
+                  <NavDropdown.Item>Suplementos</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/indumentaria" className="drop-lista">
+                  <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             </Nav>
             <Nav className="ms-auto align-items-center">
