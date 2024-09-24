@@ -8,13 +8,13 @@ const FormC = ({ idPage }) => {
     <>
       <Container
         className={
-          idPage === "registro"
+          idPage === "registro" || idPage === "planes"
             ? "mb-5 mt-3 contenedor-formulario-registro"
             : "contenedor-formulario-login"
         }
       >
         <Form>
-          {idPage === "registro" && (
+          {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Nombre</Form.Label>
               <Form.Control type="text" placeholder="Nombre" />
@@ -23,8 +23,7 @@ const FormC = ({ idPage }) => {
               </Form.Text>
             </Form.Group>
           )}
-
-          {idPage === "registro" && (
+          {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Apellido</Form.Label>
               <Form.Control type="text" placeholder="Apellido" />
@@ -33,8 +32,7 @@ const FormC = ({ idPage }) => {
               </Form.Text>
             </Form.Group>
           )}
-
-          {idPage === "registro" && (
+          {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" placeholder="Email" />
@@ -43,7 +41,6 @@ const FormC = ({ idPage }) => {
               </Form.Text>
             </Form.Group>
           )}
-
           {idPage === "registro" && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>DNI</Form.Label>
@@ -53,7 +50,6 @@ const FormC = ({ idPage }) => {
               </Form.Text>
             </Form.Group>
           )}
-
           {idPage === "login" && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Usuario</Form.Label>
@@ -64,10 +60,12 @@ const FormC = ({ idPage }) => {
             </Form.Group>
           )}
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Contraseña</Form.Label>
-            <Form.Control type="password" placeholder="Contraseña" />
-          </Form.Group>
+          {(idPage === "registro" || idPage === "login") && (
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control type="password" placeholder="Contraseña" />
+            </Form.Group>
+          )}
 
           {idPage === "registro" && (
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -91,7 +89,11 @@ const FormC = ({ idPage }) => {
               variant="primary"
               type="submit"
             >
-              {idPage === "registro" ? "Registrarse" : "Iniciar"}
+              {idPage === "registro"
+                ? "Registrarse"
+                : idPage === "login"
+                ? "Iniciar"
+                : "Enviar datos"}
             </Button>
           </div>
         </Form>
