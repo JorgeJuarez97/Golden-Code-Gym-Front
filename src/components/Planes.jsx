@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 import "../css/Planes.css";
 
 function Planes() {
@@ -27,9 +28,11 @@ function Planes() {
                     <strong>$20.000/Mes</strong>
                   </p>
                 </div>
-                <Button className="boton-plan" variant="warning">
-                  Elige este plan
-                </Button>
+                <Link to="/detalleplanes/musculacion">
+                  <Button className="boton-plan" variant="warning">
+                    Elige este plan
+                  </Button>
+                </Link>
               </Card.Body>
             </Card>
           </Col>
@@ -45,9 +48,11 @@ function Planes() {
                     <strong>$25.000/Mes</strong>
                   </p>
                 </div>
-                <Button className="boton-plan" variant="warning">
-                  Elige este plan
-                </Button>
+                <Link to="/detalleplanes/clases">
+                  <Button className="boton-plan" variant="warning">
+                    Elige este plan
+                  </Button>
+                </Link>
               </Card.Body>
             </Card>
           </Col>
@@ -63,9 +68,11 @@ function Planes() {
                     <strong>$40.000/Mes</strong>
                   </p>
                 </div>
-                <Button className="boton-plan" variant="warning">
-                  Elige este plan
-                </Button>
+                <Link to="/detalleplanes/full">
+                  <Button className="boton-plan" variant="warning">
+                    Elige este plan
+                  </Button>
+                </Link>
               </Card.Body>
             </Card>
           </Col>
