@@ -1,7 +1,8 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { CardText, Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "../css/Planes.css";
+import TextoExpandido from "./TextoExpandido";
 
 const CardProductos = ({ idPage }) => {
   const suplementos = [
@@ -94,6 +95,49 @@ const CardProductos = ({ idPage }) => {
     },
   ];
 
+  const clases = [
+    {
+      id: 1,
+      nombre: "Zumba",
+      descripcion:
+        "Una clase de baile fitness que mezcla movimientos de alta energía con ritmos latinos, ideal para quemar calorías y mejorar la coordinación mientras te diviertes. Profesor: Sofía Martínez",
+      imagen:
+        "https://fotografias.larazon.es/clipping/cmsimages01/2022/08/15/595015CE-A41C-4105-95A3-458E3279105A/98.jpg?crop=1095,616,x0,y49&width=1900&height=1069&optimize=low&format=webply",
+    },
+    {
+      id: 2,
+      nombre: "Spinning",
+      descripcion:
+        "Ejercicio cardiovascular intenso sobre una bicicleta fija, donde trabajarás la resistencia y mejorarás tu salud cardiovascular mientras fortaleces piernas y glúteos. Profesor: Valentina Gómez",
+      imagen:
+        "https://d1heoihvzm7u4h.cloudfront.net/3d813cf95216acb3eb15d8db8ee4e58da4ac3fa6_65_Spinning3200x1560px.jpg",
+    },
+    {
+      id: 3,
+      nombre: "Yoga",
+      descripcion:
+        "Combina posturas físicas con respiración controlada para mejorar la flexibilidad, el equilibrio y reducir el estrés, logrando un estado de relajación y bienestar. Profesor: Camila Rojas",
+      imagen:
+        "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/yoga.jpg",
+    },
+    {
+      id: 4,
+      nombre: "Funcional",
+      descripcion:
+        "Entrenamiento usando pesas, bandas o el propio peso corporal, ideal para mejorar la fuerza y agilidad en actividades cotidianas. Profesor: Lucas Fernández y Matías Gutiérrez",
+      imagen:
+        "https://www.universidaddeldeporte.com/wp-content/uploads/2021/09/entrenamiento_funcional.png",
+    },
+    {
+      id: 5,
+      nombre: "Boxeo",
+      descripcion:
+        "Ejercicio intenso que combina golpes y técnicas de defensa, ideal para mejorar tu coordinación, resistencia cardiovascular y liberar estrés. Profesor: Diego Pérez",
+      imagen:
+        "https://mercadofitness.com/wp-content/uploads/2022/12/La-cadena-de-gimnasios-Title-Boxing-Club-expandira-su-franquicia-a-9-paises.jpeg",
+    },
+  ];
+
   return (
     <>
       <Container>
@@ -142,6 +186,34 @@ const CardProductos = ({ idPage }) => {
                     <div className="boton-añadir-carrito">
                       <Button className="boton-plan" variant="warning">
                         Añadir al Carrito
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          {idPage === "clases" &&
+            clases.map((clase) => (
+              <Col xs={12} md={6} lg={4} className="plan" key={clase.id}>
+                <Card className="info-cuerpo clase">
+                  <Card.Img
+                    className="imagen-clase"
+                    variant="top"
+                    src={clase.imagen}
+                  />
+                  <Card.Body className="cuerpo-producto">
+                    <Card.Title className="titulo-plan titulo-producto">
+                      {clase.nombre}
+                    </Card.Title>
+                    <Card.Text>
+                      <TextoExpandido
+                        texto={clase.descripcion}
+                        maxLength={30}
+                      />
+                    </Card.Text>
+                    <div className="boton-añadir-carrito">
+                      <Button className="boton-plan" variant="warning">
+                        Sacar Turno
                       </Button>
                     </div>
                   </Card.Body>

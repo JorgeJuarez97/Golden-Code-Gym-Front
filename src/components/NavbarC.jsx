@@ -17,15 +17,17 @@ const NavbarC = () => {
     <>
       <Navbar expand="md" className="navbar-gym">
         <Container fluid>
-          <Navbar.Brand href="#home">
-            <img
-              src={
-                "https://seeklogo.com/images/G/golds-gym-round-logo-5D0D94D43D-seeklogo.com.png"
-              }
-              alt="Logo"
-              style={{ height: "80px", width: "auto" }}
-            />
-          </Navbar.Brand>
+          <LinkContainer to="/">
+            <Navbar.Brand>
+              <img
+                src={
+                  "https://seeklogo.com/images/G/golds-gym-round-logo-5D0D94D43D-seeklogo.com.png"
+                }
+                alt="Logo"
+                style={{ height: "80px", width: "auto" }}
+              />
+            </Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto align-items-center">
@@ -38,7 +40,7 @@ const NavbarC = () => {
               <NavLink className="link-navbar nav-link" to="#link">
                 Sobre Nosotros
               </NavLink>
-              <NavLink className="link-navbar nav-link" to="#link">
+              <NavLink className="link-navbar nav-link" to="/clases">
                 Clases
               </NavLink>
               <NavDropdown title="Productos" id="basic-nav-dropdown">
