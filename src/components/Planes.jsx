@@ -28,7 +28,7 @@ function Planes() {
                     <strong>$20.000/Mes</strong>
                   </p>
                 </div>
-                <Link to="/detalleplanes/musculacion">
+                <Link to="/paginadetalleplanes/musculacion">
                   <Button className="boton-plan" variant="warning">
                     Elige este plan
                   </Button>
@@ -48,7 +48,7 @@ function Planes() {
                     <strong>$25.000/Mes</strong>
                   </p>
                 </div>
-                <Link to="/detalleplanes/clases">
+                <Link to="/paginadetalleplanes/clases">
                   <Button className="boton-plan" variant="warning">
                     Elige este plan
                   </Button>
@@ -68,7 +68,7 @@ function Planes() {
                     <strong>$40.000/Mes</strong>
                   </p>
                 </div>
-                <Link to="/detalleplanes/full">
+                <Link to="/paginadetalleplanes/full">
                   <Button className="boton-plan" variant="warning">
                     Elige este plan
                   </Button>
