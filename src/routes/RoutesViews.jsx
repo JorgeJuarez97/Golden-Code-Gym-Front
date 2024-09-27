@@ -5,7 +5,8 @@ import PaginaPrincipal from "../pages/PaginaPrincipal";
 import Registro from "../pages/Registro";
 import Suplementos from "../pages/Suplementos";
 import Indumentaria from "../pages/Indumentaria";
-import DetallePlanes from "../components/DetallePlanes";
+import PaginaDetallePlanes from "../pages/PaginaDetallePlanes";
+import Clases from "../pages/Clases";
 
 const RoutesViews = () => {
   return (
@@ -17,7 +18,11 @@ const RoutesViews = () => {
           <Route path="/registro" element={<Registro />} />
           <Route path="/suplementos" element={<Suplementos />} />
           <Route path="/indumentaria" element={<Indumentaria />} />
-          <Route path="/detalleplanes/:planId" element={<DetallePlanes />} />
+          <Route
+            path="/paginadetalleplanes/:planId"
+            element={<PaginaDetallePlanes />}
+          />
+          <Route path="/clases" element={<Clases />} />
         </Routes>
       </main>
       <Footer />
