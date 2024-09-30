@@ -76,6 +76,7 @@
   height: 340px;
   flex: 1 1 auto;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .cuerpo-producto {
