@@ -7,7 +7,7 @@ const DetalleProducto = () => {
   const { tipo, productoId } = useParams();
 
   const productos =
-    tipo === "suplemento"
+    tipo === "suplementos"
       ? JSON.parse(localStorage.getItem("suplementos"))
       : JSON.parse(localStorage.getItem("indumentarias"));
 
@@ -18,20 +18,43 @@ const DetalleProducto = () => {
   }
 
   const [cantidad, setCantidad] = useState(1);
-  const [precioTotal, setPrecioTotal] = useState(producto.precio);
-
-  useEffect(() => {
-    setPrecioTotal(producto.precio * cantidad);
-  }, [cantidad, producto.precio]);
+  const [precioProducto] = useState(producto.precio);
 
   const aumentarCantidad = () => {
-    setCantidad(cantidad + 1);
+    setCantidad((prevCantidad) => prevCantidad + 1);
   };
 
   const disminuirCantidad = () => {
-    if (cantidad > 1) {
-      setCantidad(cantidad - 1);
+    setCantidad((prevCantidad) => Math.max(1, prevCantidad - 1));
+  };
+
+  const [carrito, setCarrito] = useState([]);
+
+  useEffect(() => {
+    const carritoLocal = JSON.parse(localStorage.getItem("carrito")) || [];
+    setCarrito(carritoLocal);
+  }, []);
+
+  const agregarAlCarrito = () => {
+    const carritoActual = [...carrito];
+    const productoExistente = carritoActual.find(
+      (p) => p.id === producto.id && p.tipo === tipo
+    );
+
+    if (productoExistente) {
+      productoExistente.cantidad += cantidad;
+    } else {
+      carritoActual.push({
+        ...producto,
+        tipo,
+        cantidad,
+      });
     }
+
+    setCarrito(carritoActual);
+    localStorage.setItem("carrito", JSON.stringify(carritoActual));
+    alert("Producto agregado al carrito");
+    window.dispatchEvent(new Event("storage"));
   };
 
   return (
@@ -51,7 +74,7 @@ const DetalleProducto = () => {
               {producto.descripcion}
             </div>
             <div className="text-center texto-precio-detalle">
-              <strong>${precioTotal.toFixed(2)}</strong>
+              <strong>${(precioProducto * cantidad).toFixed(2)}</strong>
             </div>
             <div className="d-flex mt-4 contenedor-cantidad">
               <div className="d-flex align-items-center">
@@ -82,7 +105,11 @@ const DetalleProducto = () => {
                 Pagar
               </Button>
 
-              <Button className="boton-pagar" variant="warning">
+              <Button
+                className="boton-pagar"
+                variant="warning"
+                onClick={() => agregarAlCarrito(producto)}
+              >
                 Agregar
               </Button>
             </div>

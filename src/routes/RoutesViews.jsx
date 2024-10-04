@@ -8,6 +8,7 @@ import Indumentaria from "../pages/Indumentaria";
 import PaginaDetallePlanes from "../pages/PaginaDetallePlanes";
 import Clases from "../pages/Clases";
 import DetalleProducto from "../pages/DetalleProducto";
+import CarritoPage from "../pages/Carrito";
 
 const RoutesViews = () => {
   return (
@@ -18,7 +19,7 @@ const RoutesViews = () => {
           <Route path="/" element={<PaginaPrincipal />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/suplementos" element={<Suplementos />} />
-          <Route path="/indumentaria" element={<Indumentaria />} />
+          <Route path="/indumentarias" element={<Indumentaria />} />
           <Route
             path="/paginadetalleplanes/:planId"
             element={<PaginaDetallePlanes />}
@@ -28,6 +29,7 @@ const RoutesViews = () => {
             path="/detalleproducto/:tipo/:productoId"
             element={<DetalleProducto />}
           />
+          <Route path="/carrito" element={<CarritoPage />} />
         </Routes>
       </main>
       <Footer />

@@ -14,6 +14,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Proteína de suero ultra filtrada para promover el crecimiento muscular y una rápida recuperación después del ejercicio. Ideal para atletas y personas activas que buscan mejorar su rendimiento.",
       precio: 22150,
+      tipo: "suplementos",
       imagen:
         "https://www.enasport.com/cdn/shop/files/7792981060021_2_f1b5bea7-4b41-47cc-acd7-c855169e2cb7.jpg?v=1715602195&width=1200",
     },
@@ -23,6 +24,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Creatina de alta pureza diseñada para aumentar la fuerza y el rendimiento físico en entrenamientos intensos. Micronizada para una mejor absorción.",
       precio: 18590,
+      tipo: "suplementos",
       imagen:
         "https://www.enasport.com/cdn/shop/files/Ena_creatinamicronizada_1000x1000_6da5cbe7-ed4a-4125-8e31-d2b77ee57399.png?v=1706886860&width=1000",
     },
@@ -32,6 +34,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Suplemento de proteína de suero de leche, excelente para el desarrollo muscular, mejorar la recuperación y mantener una nutrición adecuada para los deportistas.",
       precio: 36900,
+      tipo: "suplementos",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/279/419/products/scimmia-671-c747687798f488e65316802076583550-1024-1024.png",
     },
@@ -41,6 +44,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Creatina en polvo de rápida disolución, ideal para incrementar la energía y potencia muscular durante actividades de alta intensidad.",
       precio: 32525,
+      tipo: "suplementos",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/446/474/products/1636989941475-cf5a19930779ebd04916373583067560-640-0.png",
     },
@@ -50,6 +54,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Fórmula avanzada de proteína de suero que ayuda a desarrollar masa muscular magra y a acelerar la recuperación post-entrenamiento.",
       precio: 14500,
+      tipo: "suplementos",
       imagen:
         "https://acdn.mitiendanube.com/stores/002/956/718/products/whey-pro-1kg-frutilla1-2cf281268c82977eec16803906045939-1024-1024.jpg",
     },
@@ -59,6 +64,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Suplemento pre-entreno con creatina, diseñado para maximizar la energía y resistencia en entrenamientos de alta intensidad, con una fórmula que ayuda a reducir la fatiga.",
       precio: 13700,
+      tipo: "suplementos",
       imagen:
         "https://acdn.mitiendanube.com/stores/996/230/products/diseno-sin-titulo-13-07612f9753a8aaafae17077954249275-1024-1024.png",
     },
@@ -71,6 +77,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Remera de estilo oversize, cómoda y moderna, perfecta para un look casual en el gimnasio o para usar en el día a día.",
       precio: 29999,
+      tipo: "indumentarias",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/511/342/products/44-7238e44bddb437ef4f17270440132807-1024-1024.webp",
     },
@@ -80,6 +87,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Pantalón de jogging cómodo y versátil, ideal para entrenamientos o para usar en momentos de relax, con un diseño deportivo y ajuste flexible.",
       precio: 52999,
+      tipo: "indumentarias",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/511/342/products/4-fddd16a52a264c483f17268354616998-1024-1024.webp",
     },
@@ -89,6 +97,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Buzo estilo oversize, confeccionado con materiales suaves y de alta calidad. Perfecto para mantener el estilo mientras te mantienes abrigado.",
       precio: 61999,
+      tipo: "indumentarias",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/511/342/products/4325453-20c16438fb983d8e6f17268354811331-640-0.webp",
     },
@@ -98,6 +107,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         " Musculosa deportiva con diseño ergonómico, ideal para entrenamientos intensos. Permite una gran libertad de movimiento y máxima transpirabilidad.",
       precio: 23999,
+      tipo: "indumentarias",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/511/342/products/back-48676c166bd17d779517266622540905-640-0.webp",
     },
@@ -107,6 +117,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Short deportivo diseñado para entrenamientos, ofreciendo comodidad y flexibilidad para actividades físicas intensas.",
       precio: 24999,
+      tipo: "indumentarias",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/511/342/products/77-f8dedd91670809f54f17269480668930-640-0.webp",
     },
@@ -116,6 +127,7 @@ const CardProductos = ({ idPage }) => {
       descripcion:
         "Remera ajustada de estilo moderno, perfecta para quienes buscan una prenda cómoda y con estilo, tanto dentro como fuera del gimnasio.",
       precio: 23999,
+      tipo: "indumentarias",
       imagen:
         "https://acdn.mitiendanube.com/stores/001/511/342/products/99-95293bd87f38da9e6e17269479469426-640-0.webp",
     },
@@ -176,6 +188,29 @@ const CardProductos = ({ idPage }) => {
     }
   }, []);
 
+  const agregarAlCarrito = (producto, tipo) => {
+    const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    const productoExistente = carritoActual.find(
+      (p) => p.id === producto.id && p.tipo === tipo
+    );
+
+    if (productoExistente) {
+      productoExistente.cantidad += 1;
+    } else {
+      carritoActual.push({
+        ...producto,
+        tipo,
+        cantidad: 1,
+      });
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carritoActual));
+
+    alert("Producto agregado al carrito");
+    window.dispatchEvent(new Event("storage"));
+  };
+
   return (
     <>
       <Container>
@@ -184,7 +219,7 @@ const CardProductos = ({ idPage }) => {
             suplementos.map((suplemento) => (
               <Col xs={12} md={6} lg={4} className="plan" key={suplemento.id}>
                 <Card className="info-cuerpo producto">
-                  <Link to={`/detalleproducto/suplemento/${suplemento.id}`}>
+                  <Link to={`/detalleproducto/suplementos/${suplemento.id}`}>
                     <Card.Img
                       className="imagen-producto"
                       variant="top"
@@ -199,7 +234,13 @@ const CardProductos = ({ idPage }) => {
                       ${suplemento.precio}
                     </Card.Text>
                     <div className="boton-añadir-carrito">
-                      <Button className="boton-plan" variant="warning">
+                      <Button
+                        className="boton-plan"
+                        variant="warning"
+                        onClick={() =>
+                          agregarAlCarrito(suplemento, "suplementos")
+                        }
+                      >
                         Añadir al Carrito
                       </Button>
                     </div>
@@ -207,11 +248,13 @@ const CardProductos = ({ idPage }) => {
                 </Card>
               </Col>
             ))}
-          {idPage === "indumentaria" &&
+          {idPage === "indumentarias" &&
             indumentarias.map((indumentaria) => (
               <Col xs={12} md={6} lg={4} className="plan" key={indumentaria.id}>
                 <Card className="info-cuerpo producto">
-                  <Link to={`/detalleproducto/indumentaria/${indumentaria.id}`}>
+                  <Link
+                    to={`/detalleproducto/indumentarias/${indumentaria.id}`}
+                  >
                     <Card.Img
                       className="imagen-producto"
                       variant="top"
@@ -226,7 +269,13 @@ const CardProductos = ({ idPage }) => {
                       ${indumentaria.precio}
                     </Card.Text>
                     <div className="boton-añadir-carrito">
-                      <Button className="boton-plan" variant="warning">
+                      <Button
+                        className="boton-plan"
+                        variant="warning"
+                        onClick={() =>
+                          agregarAlCarrito(indumentaria, "indumentarias")
+                        }
+                      >
                         Añadir al Carrito
                       </Button>
                     </div>

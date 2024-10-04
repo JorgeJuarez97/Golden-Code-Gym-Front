@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../css/NavbarC.css";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalLogin from "./ModalLogin";
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -13,6 +13,40 @@ const NavbarC = () => {
 
   const handleShow = () => setShowModalLogin(true);
   const handleClose = () => setShowModalLogin(false);
+
+  const [abierto, setAbierto] = useState(false);
+  const [menuAbierto, setMenuAbierto] = useState(false);
+
+  const handleToggle = () => {
+    setAbierto(!abierto);
+  };
+
+  const handleEnter = () => {
+    setMenuAbierto(true);
+  };
+
+  const handleExited = () => {
+    setMenuAbierto(false);
+  };
+
+  const [totalItems, setTotalItems] = useState(0);
+
+  const actualizarContadorCarrito = () => {
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const total = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    setTotalItems(total);
+  };
+
+  useEffect(() => {
+    actualizarContadorCarrito();
+
+    window.addEventListener("storage", actualizarContadorCarrito);
+
+    return () => {
+      window.removeEventListener("storage", actualizarContadorCarrito);
+    };
+  }, []);
+
   return (
     <>
       <Navbar expand="md" className="navbar-gym">
@@ -28,8 +62,16 @@ const NavbarC = () => {
               />
             </Navbar.Brand>
           </LinkContainer>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={handleToggle}
+          />
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            in={abierto}
+            onEntered={handleEnter}
+            onExited={handleExited}
+          >
             <Nav className="me-auto align-items-center">
               <NavLink className="link-navbar nav-link" to="/">
                 Inicio
@@ -47,7 +89,7 @@ const NavbarC = () => {
                 <LinkContainer to="/suplementos" className="drop-lista">
                   <NavDropdown.Item>Suplementos</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/indumentaria" className="drop-lista">
+                <LinkContainer to="/indumentarias" className="drop-lista">
                   <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
@@ -61,6 +103,15 @@ const NavbarC = () => {
               </NavLink>
             </Nav>
           </Navbar.Collapse>
+          <NavLink
+            className={`link-navbar nav-link contenedor-icono-carrito ${
+              abierto || menuAbierto ? "ms-auto" : ""
+            }`}
+            to="/carrito"
+          >
+            <i className="bi bi-cart-fill icono-carrito"></i>
+            <span className="contador-carrito">{totalItems}</span>
+          </NavLink>
         </Container>
       </Navbar>
       <ModalLogin show={showModalLogin} handleClose={handleClose} />
