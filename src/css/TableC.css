@@ -1,0 +1,20 @@
+.tabla-admin {
+  font-size: 1.2rem;
+}
+
+.tabla-admin th {
+  background-color: rgb(163, 156, 156);
+  color: white;
+}
+
+.tabla-admin td {
+  background-color: rgb(163, 156, 156);
+  color: white;
+}
+
+.texto-oculto {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 400px;
+}

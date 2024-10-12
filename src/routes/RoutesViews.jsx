@@ -9,6 +9,8 @@ import PaginaDetallePlanes from "../pages/PaginaDetallePlanes";
 import Clases from "../pages/Clases";
 import DetalleProducto from "../pages/DetalleProducto";
 import CarritoPage from "../pages/Carrito";
+import PanelAdministrador from "../pages/PanelAdministrador";
+import ListaProductos from "../pages/ListaProductos";
 
 const RoutesViews = () => {
   return (
@@ -30,6 +32,8 @@ const RoutesViews = () => {
             element={<DetalleProducto />}
           />
           <Route path="/carrito" element={<CarritoPage />} />
+          <Route path="/paneladministrador" element={<PanelAdministrador />} />
+          <Route path="/listaproductos/:tipo" element={<ListaProductos />} />
         </Routes>
       </main>
       <Footer />

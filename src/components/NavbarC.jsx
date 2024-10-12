@@ -3,12 +3,18 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../css/NavbarC.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ModalLogin from "./ModalLogin";
 import { LinkContainer } from "react-router-bootstrap";
 
 const NavbarC = () => {
+  const location = useLocation();
+  const isAdminPage =
+    location.pathname === "/paneladministrador" ||
+    location.pathname === "/listaproductos/suplementos" ||
+    location.pathname === "/listaproductos/indumentarias";
+
   const [showModalLogin, setShowModalLogin] = useState(false);
 
   const handleShow = () => setShowModalLogin(true);
@@ -51,7 +57,7 @@ const NavbarC = () => {
     <>
       <Navbar expand="md" className="navbar-gym">
         <Container fluid>
-          <LinkContainer to="/">
+          <LinkContainer to={isAdminPage ? "/paneladministrador" : "/"}>
             <Navbar.Brand>
               <img
                 src={
@@ -73,7 +79,10 @@ const NavbarC = () => {
             onExited={handleExited}
           >
             <Nav className="me-auto align-items-center">
-              <NavLink className="link-navbar nav-link" to="/">
+              <NavLink
+                className="link-navbar nav-link"
+                to={isAdminPage ? "/paneladministrador" : "/"}
+              >
                 Inicio
               </NavLink>
               <NavLink className="link-navbar nav-link" to="#link">
@@ -85,23 +94,48 @@ const NavbarC = () => {
               <NavLink className="link-navbar nav-link" to="/clases">
                 Clases
               </NavLink>
-              <NavDropdown title="Productos" id="basic-nav-dropdown">
-                <LinkContainer to="/suplementos" className="drop-lista">
-                  <NavDropdown.Item>Suplementos</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/indumentarias" className="drop-lista">
-                  <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
+              {isAdminPage ? (
+                <NavDropdown title="Listas" id="basic-nav-dropdown">
+                  <LinkContainer
+                    to="/listaproductos/suplementos"
+                    className="drop-lista"
+                  >
+                    <NavDropdown.Item>Suplementos</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer
+                    to="/listaproductos/indumentarias"
+                    className="drop-lista"
+                  >
+                    <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              ) : (
+                <NavDropdown title="Productos" id="basic-nav-dropdown">
+                  <LinkContainer to="/suplementos" className="drop-lista">
+                    <NavDropdown.Item>Suplementos</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/indumentarias" className="drop-lista">
+                    <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
             </Nav>
-            <Nav className="ms-auto align-items-center">
-              <NavLink className="link-navbar nav-link" onClick={handleShow}>
-                Iniciar Sesion
-              </NavLink>
-              <NavLink className="link-navbar nav-link" to="/registro">
-                Registrarse
-              </NavLink>
-            </Nav>
+            {isAdminPage ? (
+              <Nav className="ms-auto align-items-center">
+                <NavLink className="link-navbar nav-link" to="/">
+                  Cerrar Sesion
+                </NavLink>
+              </Nav>
+            ) : (
+              <Nav className="ms-auto align-items-center">
+                <NavLink className="link-navbar nav-link" onClick={handleShow}>
+                  Iniciar Sesion
+                </NavLink>
+                <NavLink className="link-navbar nav-link" to="/registro">
+                  Registrarse
+                </NavLink>
+              </Nav>
+            )}
           </Navbar.Collapse>
           <NavLink
             className={`link-navbar nav-link contenedor-icono-carrito ${
