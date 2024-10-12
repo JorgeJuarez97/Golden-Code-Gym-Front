@@ -88,10 +88,8 @@ const DetalleProducto = () => {
                 -
               </Button>
               <div className="d-flex align-items-center numero-cantidad">
-                {" "}
-                <span>{cantidad}</span>{" "}
+                <span>{cantidad}</span>
               </div>
-
               <Button
                 className="boton-signo"
                 variant="warning"
