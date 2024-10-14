@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../css/FormC.css";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 
 const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
   const [nombre, setNombre] = useState(producto?.nombre || "");
@@ -10,9 +12,28 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
   const [descripcion, setDescripcion] = useState(producto?.descripcion || "");
   const [imagen, setImagen] = useState(producto?.imagen || "");
   const [archivoImagen, setArchivoImagen] = useState(null);
+  const location = useLocation();
+  const tipoProducto = location.pathname.includes("suplementos")
+    ? "suplementos"
+    : "indumentarias";
+  const [tipo, setTipo] = useState(producto?.tipo || tipoProducto);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm();
+
+  const mostrarDatos = handleSubmit((data) => {
+    console.log(data);
+    reset();
+  });
 
   const ultimoId =
-    productos.length > 0 ? Math.max(...productos.map((prod) => prod.id)) : 0;
+    productos && productos.length > 0
+      ? Math.max(...productos.map((prod) => prod.id))
+      : 0;
   const nuevoId = ultimoId + 1;
 
   const handleArchivoSeleccionado = (e) => {
@@ -38,6 +59,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
         precio,
         descripcion,
         imagen,
+        tipo,
       };
 
       const nuevosProductos = [...productos, nuevoProducto];
@@ -84,49 +106,98 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
             : "contenedor-formulario-login"
         }
       >
-        <Form onSubmit={handleGuardarCambios}>
+        <Form
+          onSubmit={idPage === "admin" ? handleGuardarCambios : mostrarDatos}
+        >
           {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Nombre</Form.Label>
-              <Form.Control type="text" placeholder="Nombre" />
-              <Form.Text className="text-muted">
-                Debes ingresar tu nombre
+              <Form.Control
+                type="text"
+                placeholder="Nombre"
+                {...register("nombre", {
+                  required: {
+                    value: true,
+                    message: "Nombre es requerido",
+                  },
+                  minLength: { value: 2, message: "Minimo 2 caracteres" },
+                  maxLength: { value: 20, message: "Maximo 20 caracteres" },
+                })}
+              />
+              <Form.Text className="invalido">
+                {errors.nombre && <span>{errors.nombre.message}</span>}
               </Form.Text>
             </Form.Group>
           )}
           {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Apellido</Form.Label>
-              <Form.Control type="text" placeholder="Apellido" />
-              <Form.Text className="text-muted">
-                Debes ingresar tu apellido
+              <Form.Control
+                type="text"
+                placeholder="Apellido"
+                {...register("apellido", {
+                  required: { value: true, message: "Apellido es requerido" },
+                  minLength: { value: 2, message: "Minimo 2 caracteres" },
+                  maxLength: { value: 20, message: "Maximo 20 caracteres" },
+                })}
+              />
+              <Form.Text className="invalido">
+                {errors.apellido && <span>{errors.apellido.message}</span>}
               </Form.Text>
             </Form.Group>
           )}
           {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Email" />
-              <Form.Text className="text-muted">
-                Debes ingresar tu email
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                {...register("email", {
+                  required: { value: true, message: "Email es requerido" },
+                  pattern: {
+                    value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                    message: "El email no es valido",
+                  },
+                })}
+              />
+              <Form.Text className="invalido">
+                {errors.email && <span>{errors.email.message}</span>}
               </Form.Text>
             </Form.Group>
           )}
           {idPage === "registro" && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>DNI</Form.Label>
-              <Form.Control type="number" placeholder="DNI" />
-              <Form.Text className="text-muted">
-                Debes ingresar su DNI
+              <Form.Control
+                type="number"
+                placeholder="DNI"
+                {...register("dni", {
+                  required: { value: true, message: "DNI es requerido" },
+                  minLength: { value: 7, message: "Minimo 7 caracteres" },
+                  maxLength: { value: 8, message: "Maximo de 8 caracteres" },
+                })}
+              />
+              <Form.Text className="invalido">
+                {errors.dni && <span>{errors.dni.message}</span>}
               </Form.Text>
             </Form.Group>
           )}
           {idPage === "login" && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Usuario</Form.Label>
-              <Form.Control type="text" placeholder="Usuario" />
-              <Form.Text className="text-muted">
-                Debes ingresar tu email
+              <Form.Control
+                type="email"
+                placeholder="Debes ingresar tu email"
+                {...register("usuario", {
+                  required: { value: true, message: "Usuario es requerido" },
+                  pattern: {
+                    value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                    message: "El email no es valido",
+                  },
+                })}
+              />
+              <Form.Text className="invalido">
+                {errors.usuario && <span>{errors.usuario.message}</span>}
               </Form.Text>
             </Form.Group>
           )}
@@ -134,14 +205,42 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
           {(idPage === "registro" || idPage === "login") && (
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control type="password" placeholder="Contraseña" />
+              <Form.Control
+                type="password"
+                placeholder="Ingresa tu contraseña"
+                {...register("contraseña", {
+                  required: { value: true, message: "Contraseña es requerida" },
+                  minLength: { value: 8, message: "Minimo de 8 caracteres" },
+                  maxLength: { value: 16, message: "Maximo de 16 caracteres" },
+                })}
+              />
+              <Form.Text className="invalido">
+                {errors.contraseña && <span>{errors.contraseña.message}</span>}
+              </Form.Text>
             </Form.Group>
           )}
 
           {idPage === "registro" && (
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Repetir Contraseña</Form.Label>
-              <Form.Control type="password" placeholder="Repetir Contraseña" />
+              <Form.Control
+                type="password"
+                placeholder="Repetir Contraseña"
+                {...register("repetirContraseña", {
+                  required: {
+                    value: true,
+                    message: "Repetir contraseña es requerido",
+                  },
+                  validate: (value) =>
+                    value === watch("contraseña") ||
+                    "Las contraseñas no coinciden",
+                })}
+              />
+              <Form.Text className="invalido">
+                {errors.repetirContraseña && (
+                  <span>{errors.repetirContraseña.message}</span>
+                )}
+              </Form.Text>
             </Form.Group>
           )}
 
@@ -150,6 +249,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
               <Form.Check
                 type="checkbox"
                 label="Acepto los terminos y condiciones"
+                {...register("aceptarTerminos", { required: true })}
               />
             </Form.Group>
           )}
@@ -168,11 +268,25 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
                 />
               </Form.Group>
 
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Tipo de producto</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Tipo de producto"
+                  aria-label="Disabled input example"
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                  disabled
+                  readOnly
+                />
+              </Form.Group>
+
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Imagen</Form.Label>
                 <Form.Control
                   type="file"
                   onChange={handleArchivoSeleccionado}
+                  required
                 />
               </Form.Group>
 
@@ -190,7 +304,8 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Nombre"
+                  placeholder="Ingrese el nombre del producto"
+                  required
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                 />
@@ -199,8 +314,9 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Precio"
+                  required
                   value={precio}
                   onChange={(e) => setPrecio(e.target.value)}
                 />
@@ -213,6 +329,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
                 <Form.Label>Descripcion</Form.Label>
                 <Form.Control
                   as="textarea"
+                  required
                   rows={3}
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}

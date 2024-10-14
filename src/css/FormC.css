@@ -8,6 +8,10 @@
   font-weight: bold;
 }
 
+.invalido {
+  color: tomato;
+}
+
 .contenedor-boton-registro {
   display: flex;
   justify-content: center;
