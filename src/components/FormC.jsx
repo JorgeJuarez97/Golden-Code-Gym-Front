@@ -102,14 +102,18 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
       <Container
         className={
           idPage === "registro" || idPage === "planes"
-            ? "mb-5 mt-3 contenedor-formulario-registro"
+            ? "mt-3 contenedor-formulario-registro"
+            : idPage === "contacto"
+            ? "contenedor-formulario-contacto"
             : "contenedor-formulario-login"
         }
       >
         <Form
           onSubmit={idPage === "admin" ? handleGuardarCambios : mostrarDatos}
         >
-          {(idPage === "registro" || idPage === "planes") && (
+          {(idPage === "registro" ||
+            idPage === "planes" ||
+            idPage === "contacto") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
@@ -129,7 +133,9 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
               </Form.Text>
             </Form.Group>
           )}
-          {(idPage === "registro" || idPage === "planes") && (
+          {(idPage === "registro" ||
+            idPage === "planes" ||
+            idPage === "contacto") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Apellido</Form.Label>
               <Form.Control
@@ -146,7 +152,9 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
               </Form.Text>
             </Form.Group>
           )}
-          {(idPage === "registro" || idPage === "planes") && (
+          {(idPage === "registro" ||
+            idPage === "planes" ||
+            idPage === "contacto") && (
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control

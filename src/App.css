@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+  position: relative;
+}
 body {
+  margin: 0;
+  margin-bottom: 100px;
   background-color: gold;
 }

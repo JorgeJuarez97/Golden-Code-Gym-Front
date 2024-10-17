@@ -1,0 +1,39 @@
+@media (max-width: 991px) and (min-width: 737px) {
+  .contenedor-contacto {
+    margin-bottom: 130px;
+  }
+}
+
+@media (max-width: 736px) and (min-width: 686px) {
+  .contenedor-contacto {
+    margin-bottom: 150px;
+  }
+}
+
+@media (max-width: 685px) and (min-width: 507px) {
+  .contenedor-contacto {
+    margin-bottom: 200px;
+  }
+}
+
+@media (max-width: 506px) and (min-width: 315px) {
+  .contenedor-contacto {
+    margin-bottom: 270px;
+  }
+}
+
+@media (max-width: 314px) {
+  .contenedor-contacto {
+    margin-bottom: 300px;
+  }
+}
+
+@media (max-width: 506px) {
+  .imagen-ubicacion {
+    width: 100%;
+  }
+
+  .texto-contacto {
+    text-align: center;
+  }
+}
