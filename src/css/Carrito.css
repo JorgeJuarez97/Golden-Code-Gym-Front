@@ -1,7 +1,3 @@
-.contenedor-principal {
-  height: 100vh;
-}
-
 .contenedor-principal-carrito {
   display: flex;
   justify-content: center;

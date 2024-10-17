@@ -2,7 +2,8 @@
   background-color: gold;
   color: black;
   padding: 5px 20px 10px 20px;
-  margin-top: auto;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer i {
