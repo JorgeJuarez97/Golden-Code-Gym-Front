@@ -85,7 +85,7 @@ const NavbarC = () => {
               >
                 Inicio
               </NavLink>
-              <NavLink className="link-navbar nav-link" to="#link">
+              <NavLink className="link-navbar nav-link" to="/paginacontacto">
                 Contacto
               </NavLink>
               <NavLink className="link-navbar nav-link" to="#link">

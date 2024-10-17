@@ -1,11 +1,16 @@
 .contenedor-formulario-registro {
   width: 50%;
   font-weight: bold;
+  margin-bottom: 120px;
 }
 
 .contenedor-formulario-login {
   width: 100%;
   font-weight: bold;
+}
+
+.contenedor-formulario-contacto {
+  width: 70%;
 }
 
 .invalido {
