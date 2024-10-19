@@ -12,6 +12,7 @@ import CarritoPage from "../pages/Carrito";
 import PanelAdministrador from "../pages/PanelAdministrador";
 import ListaProductos from "../pages/ListaProductos";
 import PaginaContacto from "../pages/PaginaContacto";
+import PaginaSobreNosotros from "../pages/PaginaSobreNosotros";
 
 const RoutesViews = () => {
   return (
@@ -36,6 +37,10 @@ const RoutesViews = () => {
           <Route path="/paneladministrador" element={<PanelAdministrador />} />
           <Route path="/listaproductos/:tipo" element={<ListaProductos />} />
           <Route path="/paginacontacto" element={<PaginaContacto />} />
+          <Route
+            path="/paginasobrenosotros"
+            element={<PaginaSobreNosotros />}
+          />
         </Routes>
       </main>
       <Footer />
