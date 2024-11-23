@@ -114,7 +114,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
           {(idPage === "registro" ||
             idPage === "planes" ||
             idPage === "contacto") && (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="form-nombre">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
@@ -136,7 +136,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
           {(idPage === "registro" ||
             idPage === "planes" ||
             idPage === "contacto") && (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="form-apellido">
               <Form.Label>Apellido</Form.Label>
               <Form.Control
                 type="text"
@@ -155,7 +155,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
           {(idPage === "registro" ||
             idPage === "planes" ||
             idPage === "contacto") && (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="form-email">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -174,7 +174,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
             </Form.Group>
           )}
           {idPage === "registro" && (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="form-dni">
               <Form.Label>DNI</Form.Label>
               <Form.Control
                 type="number"
@@ -191,7 +191,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
             </Form.Group>
           )}
           {idPage === "login" && (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="form-usuario">
               <Form.Label>Usuario</Form.Label>
               <Form.Control
                 type="email"
@@ -211,7 +211,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
           )}
 
           {(idPage === "registro" || idPage === "login") && (
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="form-contraseña">
               <Form.Label>Contraseña</Form.Label>
               <Form.Control
                 type="password"
@@ -229,7 +229,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
           )}
 
           {idPage === "registro" && (
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="form-repetirContraseña">
               <Form.Label>Repetir Contraseña</Form.Label>
               <Form.Control
                 type="password"
@@ -253,7 +253,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
           )}
 
           {idPage === "registro" && (
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Group className="mb-3" controlId="form-checkbox">
               <Form.Check
                 type="checkbox"
                 label="Acepto los terminos y condiciones"
@@ -264,7 +264,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
 
           {idPage === "admin" && (
             <>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="form-id">
                 <Form.Label>ID</Form.Label>
                 <Form.Control
                   type="number"
@@ -276,7 +276,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="form-tipoProducto">
                 <Form.Label>Tipo de producto</Form.Label>
                 <Form.Control
                   type="text"
@@ -308,7 +308,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
                 </div>
               )}
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="form-nombreProducto">
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
                   type="text"
@@ -319,7 +319,7 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="form-precio">
                 <Form.Label>Precio</Form.Label>
                 <Form.Control
                   type="number"
@@ -346,6 +346,31 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
             </>
           )}
 
+          {idPage === "reserva" && (
+            <>
+              <Form.Group className="mb-3" controlId="form-horarioReserva">
+                <Form.Label>Horario</Form.Label>
+                <Form.Control
+                  type="number"
+                  aria-label="Disabled input example"
+                  disabled
+                  readOnly
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="form-horarioReserva">
+                <Form.Label>Dias de clases</Form.Label>
+                <Form.Select aria-label="Default select example" required>
+                  <option>Selecciona el dia</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </Form.Select>
+              </Form.Group>
+
+              <Form.Text>Cupos disponibles 20</Form.Text>
+            </>
+          )}
+
           <div className="contenedor-boton-registro">
             <Button
               className="boton-registro mt-3"
@@ -358,6 +383,8 @@ const FormC = ({ idPage, producto, setProductos, productos, handleClose }) => {
                 ? "Iniciar"
                 : idPage === "admin"
                 ? "Guardar"
+                : idPage === "reserva"
+                ? "Reservar"
                 : "Enviar datos"}
             </Button>
           </div>

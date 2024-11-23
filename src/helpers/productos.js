@@ -132,6 +132,9 @@ export const clases = [
       "Una clase de baile fitness que mezcla movimientos de alta energía con ritmos latinos, ideal para quemar calorías y mejorar la coordinación mientras te diviertes. Profesor: Sofía Martínez",
     imagen:
       "https://fotografias.larazon.es/clipping/cmsimages01/2022/08/15/595015CE-A41C-4105-95A3-458E3279105A/98.jpg?crop=1095,616,x0,y49&width=1900&height=1069&optimize=low&format=webply",
+    horario: "10:00 - 11:00",
+    dia: ["Lunes", "Miercoles"],
+    cuposPorDia: { Lunes: 10, Miercoles: 10 },
   },
   {
     id: 2,
@@ -140,6 +143,9 @@ export const clases = [
       "Ejercicio cardiovascular intenso sobre una bicicleta fija, donde trabajarás la resistencia y mejorarás tu salud cardiovascular mientras fortaleces piernas y glúteos. Profesor: Valentina Gómez",
     imagen:
       "https://d1heoihvzm7u4h.cloudfront.net/3d813cf95216acb3eb15d8db8ee4e58da4ac3fa6_65_Spinning3200x1560px.jpg",
+    horario: "09:00 - 10:00",
+    dia: ["Martes", "Miercoles"],
+    cuposPorDia: { Martes: 10, Miercoles: 10 },
   },
   {
     id: 3,
@@ -148,6 +154,9 @@ export const clases = [
       "Combina posturas físicas con respiración controlada para mejorar la flexibilidad, el equilibrio y reducir el estrés, logrando un estado de relajación y bienestar. Profesor: Camila Rojas",
     imagen:
       "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/yoga.jpg",
+    horario: "15:00 - 16:00",
+    dia: ["Jueves", "Viernes"],
+    cuposPorDia: { Jueves: 10, Viernes: 10 },
   },
   {
     id: 4,
@@ -156,6 +165,9 @@ export const clases = [
       "Entrenamiento usando pesas, bandas o el propio peso corporal, ideal para mejorar la fuerza y agilidad en actividades cotidianas. Profesor: Lucas Fernández y Matías Gutiérrez",
     imagen:
       "https://www.universidaddeldeporte.com/wp-content/uploads/2021/09/entrenamiento_funcional.png",
+    horario: "18:00 - 19:00",
+    dia: ["Lunes", "Miercoles", "Viernes"],
+    cuposPorDia: { Lunes: 10, Miercoles: 10, Viernes: 10 },
   },
   {
     id: 5,
@@ -164,5 +176,8 @@ export const clases = [
       "Ejercicio intenso que combina golpes y técnicas de defensa, ideal para mejorar tu coordinación, resistencia cardiovascular y liberar estrés. Profesor: Diego Pérez",
     imagen:
       "https://mercadofitness.com/wp-content/uploads/2022/12/La-cadena-de-gimnasios-Title-Boxing-Club-expandira-su-franquicia-a-9-paises.jpeg",
+    horario: "20:00 - 21:00",
+    dia: ["Martes", "Jueves"],
+    cuposPorDia: { Martes: 10, Jueves: 10 },
   },
 ];
