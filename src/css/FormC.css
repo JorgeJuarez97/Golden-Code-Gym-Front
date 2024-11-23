@@ -26,6 +26,36 @@
   width: 40%;
 }
 
+@media (max-width: 738px) and (min-width: 686px) {
+  .contenedor-formulario-registro {
+    margin-bottom: 140px;
+  }
+}
+
+@media (max-width: 685px) and (min-width: 507px) {
+  .contenedor-formulario-registro {
+    margin-bottom: 200px;
+  }
+}
+
+@media (max-width: 506px) and (min-width: 458px) {
+  .contenedor-formulario-registro {
+    margin-bottom: 220px;
+  }
+}
+
+@media (max-width: 457px) and (min-width: 315px) {
+  .contenedor-formulario-registro {
+    margin-bottom: 270px;
+  }
+}
+
+@media (max-width: 314px) {
+  .contenedor-formulario-registro {
+    margin-bottom: 320px;
+  }
+}
+
 @media (max-width: 570px) and (min-width: 360px) {
   .contenedor-formulario-registro {
     width: 80%;
