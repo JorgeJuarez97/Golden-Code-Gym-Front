@@ -1,9 +1,9 @@
 import FormC from "../components/FormC";
 
-const Registro = () => {
+const Registro = ({ setShowModalLogin }) => {
   return (
     <>
-      <FormC idPage="registro" />
+      <FormC idPage="registro" setShowModalLogin={setShowModalLogin} />
     </>
   );
 };
