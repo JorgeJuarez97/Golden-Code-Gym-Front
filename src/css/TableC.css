@@ -12,9 +12,30 @@
   color: white;
 }
 
+.texto-oculto-id {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 50px;
+}
+
+.texto-oculto-clase {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 300px;
+}
+
 .texto-oculto {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  width: 400px;
+  width: 300px;
+}
+
+.texto-oculto-profe {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 200px;
 }

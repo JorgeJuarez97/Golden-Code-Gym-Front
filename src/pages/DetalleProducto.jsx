@@ -1,60 +1,40 @@
 import { Button, Container } from "react-bootstrap";
 import "../css/DetalleProducto.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import clientAxios from "../helpers/axios.config";
 
-const DetalleProducto = () => {
-  const { tipo, productoId } = useParams();
+const DetalleProducto = ({ setShowModalLogin }) => {
+  const params = useParams();
+  const [producto, setProducto] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const cantidad = 1;
 
-  const productos =
-    tipo === "suplementos"
-      ? JSON.parse(localStorage.getItem("suplementos"))
-      : JSON.parse(localStorage.getItem("indumentarias"));
+  const obtenerProducto = async () => {
+    const result = await clientAxios.get(`productosgym/${params.idProducto}`);
+    setProducto(result.data);
+    setIsLoading(false);
+  };
 
-  const producto = productos.find((p) => p.id === parseInt(productoId));
+  useEffect(() => {
+    obtenerProducto();
+  }, []);
+
+  if (isLoading) {
+    return <h2>Cargando producto...</h2>;
+  }
 
   if (!producto) {
     return <h2>Producto no encontrado</h2>;
   }
 
-  const [cantidad, setCantidad] = useState(1);
-  const [precioProducto] = useState(producto.precio);
-
-  const aumentarCantidad = () => {
-    setCantidad((prevCantidad) => prevCantidad + 1);
-  };
-
-  const disminuirCantidad = () => {
-    setCantidad((prevCantidad) => Math.max(1, prevCantidad - 1));
-  };
-
-  const [carrito, setCarrito] = useState([]);
-
-  useEffect(() => {
-    const carritoLocal = JSON.parse(localStorage.getItem("carrito")) || [];
-    setCarrito(carritoLocal);
-  }, []);
-
   const agregarAlCarrito = () => {
-    const carritoActual = [...carrito];
-    const productoExistente = carritoActual.find(
-      (p) => p.id === producto.id && p.tipo === tipo
-    );
+    const token = JSON.parse(sessionStorage.getItem("token")) || "";
 
-    if (productoExistente) {
-      productoExistente.cantidad += cantidad;
-    } else {
-      carritoActual.push({
-        ...producto,
-        tipo,
-        cantidad,
-      });
+    if (!token) {
+      alert("Debes iniciar sesion para agregar el producto al carrito");
+      setShowModalLogin(true);
     }
-
-    setCarrito(carritoActual);
-    localStorage.setItem("carrito", JSON.stringify(carritoActual));
-    alert("Producto agregado al carrito");
-    window.dispatchEvent(new Event("storage"));
   };
 
   return (
@@ -74,7 +54,7 @@ const DetalleProducto = () => {
               {producto.descripcion}
             </div>
             <div className="text-center texto-precio-detalle">
-              <strong>${(precioProducto * cantidad).toFixed(2)}</strong>
+              <strong>${producto.precio * cantidad.toFixed(2)}</strong>
             </div>
             <div className="d-flex mt-4 contenedor-cantidad">
               <div className="d-flex align-items-center">
@@ -83,7 +63,7 @@ const DetalleProducto = () => {
               <Button
                 className="boton-signo text-center"
                 variant="warning"
-                onClick={disminuirCantidad}
+                // onClick={disminuirCantidad}
               >
                 -
               </Button>
@@ -93,7 +73,7 @@ const DetalleProducto = () => {
               <Button
                 className="boton-signo"
                 variant="warning"
-                onClick={aumentarCantidad}
+                // onClick={aumentarCantidad}
               >
                 +
               </Button>

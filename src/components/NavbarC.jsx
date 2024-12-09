@@ -3,19 +3,24 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../css/NavbarC.css";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ModalLogin from "./ModalLogin";
 import { LinkContainer } from "react-router-bootstrap";
 
-const NavbarC = () => {
-  const location = useLocation();
-  const isAdminPage =
-    location.pathname === "/paneladministrador" ||
-    location.pathname === "/listaproductos/suplementos" ||
-    location.pathname === "/listaproductos/indumentarias";
+const NavbarC = ({ setShowModalLogin, showModalLogin }) => {
+  const navigate = useNavigate();
+  const token = JSON.parse(sessionStorage.getItem("token")) || "";
+  const rol = JSON.parse(sessionStorage.getItem("rol")) || "";
 
-  const [showModalLogin, setShowModalLogin] = useState(false);
+  const cerrarSesion = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("rol");
+
+    setTimeout(() => {
+      navigate("/");
+    }, 500);
+  };
 
   const handleShow = () => setShowModalLogin(true);
   const handleClose = () => setShowModalLogin(false);
@@ -57,7 +62,9 @@ const NavbarC = () => {
     <>
       <Navbar expand="md" className="navbar-gym">
         <Container fluid>
-          <LinkContainer to={isAdminPage ? "/paneladministrador" : "/"}>
+          <LinkContainer
+            to={token && rol === "admin" ? "/paneladministrador" : "/"}
+          >
             <Navbar.Brand>
               <img
                 src={
@@ -81,51 +88,71 @@ const NavbarC = () => {
             <Nav className="me-auto align-items-center">
               <NavLink
                 className="link-navbar nav-link"
-                to={isAdminPage ? "/paneladministrador" : "/"}
+                to={token && rol === "admin" ? "/paneladministrador" : "/"}
               >
                 Inicio
               </NavLink>
-              <NavLink className="link-navbar nav-link" to="/paginacontacto">
-                Contacto
-              </NavLink>
-              <NavLink
-                className="link-navbar nav-link"
-                to="/paginasobrenosotros"
-              >
-                Sobre Nosotros
-              </NavLink>
-              <NavLink className="link-navbar nav-link" to="/clases">
-                Clases
-              </NavLink>
-              {isAdminPage ? (
+              {token && rol === "admin" ? (
                 <NavDropdown title="Listas" id="basic-nav-dropdown">
                   <LinkContainer
-                    to="/listaproductos/suplementos"
+                    to="/listaproductossuplementos"
                     className="drop-lista"
                   >
                     <NavDropdown.Item>Suplementos</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer
-                    to="/listaproductos/indumentarias"
+                    to="/listaproductosindumentarias"
                     className="drop-lista"
                   >
                     <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/listaclases" className="drop-lista">
+                    <NavDropdown.Item>Clases</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/listausuarios" className="drop-lista">
+                    <NavDropdown.Item>Usuarios</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/listaprofes" className="drop-lista">
+                    <NavDropdown.Item>Profesores</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               ) : (
-                <NavDropdown title="Productos" id="basic-nav-dropdown">
-                  <LinkContainer to="/suplementos" className="drop-lista">
-                    <NavDropdown.Item>Suplementos</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/indumentarias" className="drop-lista">
-                    <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
+                <>
+                  <NavLink
+                    className="link-navbar nav-link"
+                    to="/paginacontacto"
+                  >
+                    Contacto
+                  </NavLink>
+                  <NavLink
+                    className="link-navbar nav-link"
+                    to="/paginasobrenosotros"
+                  >
+                    Sobre Nosotros
+                  </NavLink>
+                  <NavLink className="link-navbar nav-link" to="/clases">
+                    Clases
+                  </NavLink>
+                  <NavDropdown title="Productos" id="basic-nav-dropdown">
+                    <LinkContainer to="/suplementos" className="drop-lista">
+                      <NavDropdown.Item>Suplementos</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/indumentarias" className="drop-lista">
+                      <NavDropdown.Item>
+                        Indumentaria Deportiva
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                </>
               )}
             </Nav>
-            {isAdminPage ? (
+            {token ? (
               <Nav className="ms-auto align-items-center">
-                <NavLink className="link-navbar nav-link" to="/">
+                <NavLink
+                  className="link-navbar nav-link"
+                  to="#"
+                  onClick={cerrarSesion}
+                >
                   Cerrar Sesion
                 </NavLink>
               </Nav>
@@ -140,18 +167,26 @@ const NavbarC = () => {
               </Nav>
             )}
           </Navbar.Collapse>
-          <NavLink
-            className={`link-navbar nav-link contenedor-icono-carrito ${
-              abierto || menuAbierto ? "ms-auto" : ""
-            }`}
-            to="/carrito"
-          >
-            <i className="bi bi-cart-fill icono-carrito"></i>
-            <span className="contador-carrito">{totalItems}</span>
-          </NavLink>
+          {token && rol === "admin" ? (
+            ""
+          ) : (
+            <NavLink
+              className={`link-navbar nav-link contenedor-icono-carrito ${
+                abierto || menuAbierto ? "ms-auto" : ""
+              }`}
+              to="/carrito"
+            >
+              <i className="bi bi-cart-fill icono-carrito"></i>
+              <span className="contador-carrito">{totalItems}</span>
+            </NavLink>
+          )}
         </Container>
       </Navbar>
-      <ModalLogin show={showModalLogin} handleClose={handleClose} />
+      <ModalLogin
+        show={showModalLogin}
+        handleClose={handleClose}
+        setShowModalLogin={setShowModalLogin}
+      />
     </>
   );
 };
