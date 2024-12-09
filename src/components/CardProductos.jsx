@@ -6,58 +6,23 @@ import TextoExpandido from "./TextoExpandido";
 import { Link } from "react-router-dom";
 import ModalLogin from "./ModalLogin";
 import { useState } from "react";
-import { useEffect } from "react";
+import "../css/Infogym.css";
 
-const CardProductos = ({ idPage }) => {
-  const [suplementos, setSuplementos] = useState([]);
+const CardProductos = ({
+  idPage,
+  suplementos,
+  indumentarias,
+  clases,
+  profes,
+  setShowModalLogin,
+}) => {
+  const agregarAlCarrito = () => {
+    const token = JSON.parse(sessionStorage.getItem("token")) || "";
 
-  const getSuplementos = async () => {
-    const products = await fetch(
-      "http://localhost:3001/productosgym/suplementos"
-    );
-    const data = await products.json();
-    setSuplementos(data);
-  };
-
-  useEffect(() => {
-    getSuplementos();
-  }, []);
-
-  const [indumentarias, setIndumentarias] = useState([]);
-
-  const getIndumentarias = async () => {
-    const products = await fetch(
-      "http://localhost:3001/productosgym/indumentarias"
-    );
-    const data = await products.json();
-    setIndumentarias(data);
-  };
-
-  useEffect(() => {
-    getIndumentarias();
-  }, []);
-
-  const agregarAlCarrito = (producto, tipo) => {
-    const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    const productoExistente = carritoActual.find(
-      (p) => p.id === producto.id && p.tipo === tipo
-    );
-
-    if (productoExistente) {
-      productoExistente.cantidad += 1;
-    } else {
-      carritoActual.push({
-        ...producto,
-        tipo,
-        cantidad: 1,
-      });
+    if (!token) {
+      alert("Debes iniciar sesion para agregar el producto al carrito");
+      setShowModalLogin(true);
     }
-
-    localStorage.setItem("carrito", JSON.stringify(carritoActual));
-
-    alert("Producto agregado al carrito");
-    window.dispatchEvent(new Event("storage"));
   };
 
   const [showModalReserva, setShowModalReserva] = useState(false);
@@ -74,111 +39,158 @@ const CardProductos = ({ idPage }) => {
       <Container>
         <Row className="contenedor-plan">
           {idPage === "suplementos" &&
-            suplementos.map((suplemento) => (
-              <Col xs={12} md={6} lg={4} className="plan" key={suplemento._id}>
-                <Card className="info-cuerpo producto">
-                  <Link to={`/detalleproducto/suplementos/${suplemento._id}`}>
-                    <Card.Img
-                      className="imagen-producto"
-                      variant="top"
-                      src={suplemento.imagen}
-                    />
-                  </Link>
-                  <Card.Body className="cuerpo-producto">
-                    <Card.Title className="titulo-plan titulo-producto">
-                      {suplemento.nombreProducto}
-                    </Card.Title>
-                    <Card.Text className="precio-producto">
-                      ${suplemento.precio}
-                    </Card.Text>
-                    <div className="boton-añadir-carrito">
-                      <Button
-                        className="boton-plan"
-                        variant="warning"
-                        onClick={() =>
-                          agregarAlCarrito(suplemento, "suplementos")
-                        }
-                      >
-                        Añadir al Carrito
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          {idPage === "indumentarias" &&
-            indumentarias.map((indumentaria) => (
-              <Col
-                xs={12}
-                md={6}
-                lg={4}
-                className="plan"
-                key={indumentaria._id}
-              >
-                <Card className="info-cuerpo producto">
-                  <Link
-                    to={`/detalleproducto/indumentarias/${indumentaria._id}`}
+            suplementos.map(
+              (suplemento) =>
+                !suplemento.bloqueado && (
+                  <Col
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    className="plan"
+                    key={suplemento._id}
                   >
-                    <Card.Img
-                      className="imagen-producto"
-                      variant="top"
-                      src={indumentaria.imagen}
-                    />
-                  </Link>
-                  <Card.Body className="cuerpo-producto">
-                    <Card.Title className="titulo-plan titulo-producto">
-                      {indumentaria.nombreProducto}
-                    </Card.Title>
-                    <Card.Text className="precio-producto">
-                      ${indumentaria.precio}
-                    </Card.Text>
-                    <div className="boton-añadir-carrito">
-                      <Button
-                        className="boton-plan"
-                        variant="warning"
-                        onClick={() =>
-                          agregarAlCarrito(indumentaria, "indumentarias")
-                        }
+                    <Card className="producto">
+                      <Link
+                        to={`/detalleproducto/suplementos/${suplemento._id}`}
                       >
-                        Añadir al Carrito
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
+                        <Card.Img
+                          className="imagen-producto"
+                          variant="top"
+                          src={suplemento.imagen}
+                        />
+                      </Link>
+                      <Card.Body className="cuerpo-producto">
+                        <Card.Title className="titulo-plan titulo-producto">
+                          {suplemento.nombreProducto}
+                        </Card.Title>
+                        <Card.Text className="precio-producto">
+                          ${suplemento.precio}
+                        </Card.Text>
+                        <div className="boton-añadir-carrito">
+                          <Button
+                            className="boton-plan"
+                            variant="warning"
+                            onClick={() => agregarAlCarrito(suplemento)}
+                          >
+                            Añadir al Carrito
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                )
+            )}
+          {idPage === "indumentarias" &&
+            indumentarias.map(
+              (indumentaria) =>
+                !indumentaria.bloqueado && (
+                  <Col
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    className="plan"
+                    key={indumentaria._id}
+                  >
+                    <Card className="producto">
+                      <Link
+                        to={`/detalleproducto/indumentarias/${indumentaria._id}`}
+                      >
+                        <Card.Img
+                          className="imagen-producto"
+                          variant="top"
+                          src={indumentaria.imagen}
+                        />
+                      </Link>
+                      <Card.Body className="cuerpo-producto">
+                        <Card.Title className="titulo-plan titulo-producto">
+                          {indumentaria.nombreProducto}
+                        </Card.Title>
+                        <Card.Text className="precio-producto">
+                          ${indumentaria.precio}
+                        </Card.Text>
+                        <div className="boton-añadir-carrito">
+                          <Button
+                            className="boton-plan"
+                            variant="warning"
+                            onClick={() => agregarAlCarrito(indumentaria)}
+                          >
+                            Añadir al Carrito
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                )
+            )}
           {idPage === "clases" &&
-            clases.map((clase) => (
-              <Col xs={12} md={6} lg={4} className="plan" key={clase.id}>
-                <Card className="info-cuerpo clase">
-                  <Card.Img
-                    className="imagen-clase"
-                    variant="top"
-                    src={clase.imagen}
-                  />
-                  <Card.Body className="cuerpo-producto">
-                    <Card.Title className="titulo-plan titulo-producto">
-                      {clase.nombre}
-                    </Card.Title>
-                    <Card.Text>
-                      <TextoExpandido
-                        texto={clase.descripcion}
-                        maxLength={30}
+            clases.map(
+              (clase) =>
+                !clase.bloqueado && (
+                  <Col xs={12} md={6} lg={4} className="plan" key={clase._id}>
+                    <Card className="clase">
+                      <Card.Img
+                        className="imagen-clase"
+                        variant="top"
+                        src={clase.imagen}
                       />
-                    </Card.Text>
-                    <div className="boton-añadir-carrito">
-                      <Button
-                        className="boton-plan"
-                        variant="warning"
-                        onClick={handleShow}
-                      >
-                        Reservar Cupo
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
+                      <Card.Body className="cuerpo-producto">
+                        <Card.Title className="titulo-plan titulo-producto">
+                          {clase.nombreClase}
+                        </Card.Title>
+                        <Card.Text as="div">
+                          <TextoExpandido
+                            texto={clase.descripcionClase}
+                            maxLength={30}
+                          />
+                        </Card.Text>
+                        <div className="boton-añadir-carrito">
+                          <Button
+                            className="boton-plan"
+                            variant="warning"
+                            onClick={handleShow}
+                          >
+                            Reservar Cupo
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                )
+            )}
+          {idPage === "profes" &&
+            profes.map(
+              (profe) =>
+                !profe.bloqueado && (
+                  <Col xs={12} md={6} lg={4} className="info" key={profe._id}>
+                    <Card className="info-cuerpo">
+                      <Card.Img
+                        className="imagen-profe"
+                        variant="top"
+                        src={profe.imagen}
+                      />
+                      <Card.Body className="cuerpo-producto">
+                        <Card.Title className="texto-card">
+                          {profe.nombreProfe}
+                        </Card.Title>
+                        <Card.Text className="texto-card">
+                          <strong>Clase:</strong> {profe.clase}
+                        </Card.Text>
+                        <Card.Text className="texto-card">
+                          <strong>Zona de Musculación:</strong>{" "}
+                          {profe.zonaDeMusculacion}
+                        </Card.Text>
+                        <Card.Text className="texto-card" as="div">
+                          <strong>Reseña Academica:</strong>
+                          <TextoExpandido
+                            texto={profe.reseñaAcademica}
+                            maxLength={30}
+                          />
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                )
+            )}
         </Row>
       </Container>
       <ModalLogin
