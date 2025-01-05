@@ -45,16 +45,16 @@ const Footer = () => {
             </a>
           </div>
           <div className="politicas">
-            <Link className="enlace" to="#">
+            <Link className="enlace" to="/error404">
               Politicas de privacidad
             </Link>
-            <Link className="enlace" to="#">
+            <Link className="enlace" to="/error404">
               Administrar Cookies
             </Link>
-            <Link className="enlace" to="#">
+            <Link className="enlace" to="/error404">
               Info
             </Link>
-            <Link className="enlace" to="#">
+            <Link className="enlace" to="/error404">
               Ayuda
             </Link>
           </div>

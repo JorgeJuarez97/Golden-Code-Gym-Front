@@ -4,29 +4,88 @@ import { useEffect, useState } from "react";
 import PaginationC from "../components/PaginationC";
 import clientAxios, { configHeaders } from "../helpers/axios.config";
 import ModalLogin from "../components/ModalLogin";
-import "../css/MarginTop.css";
+import "../css/MarginBottom.css";
 import "../css/MarginBottom.css";
 
-const ListaProfes = () => {
+const ListaPlanes = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const productosPorPagina = 6;
 
-  const [profes, setProfes] = useState([]);
+  const [planes, setPlanes] = useState([]);
 
-  const getProfes = async () => {
-    const result = await clientAxios.get("/profesgym", configHeaders);
-    setProfes(result.data);
+  const getPlanes = async () => {
+    const result = await clientAxios.get("/planesgym", configHeaders);
+    setPlanes(result.data);
   };
 
   useEffect(() => {
-    getProfes();
+    getPlanes();
   }, []);
 
-  const totalPaginas = Math.ceil(profes.length / productosPorPagina);
+  const eliminarPlan = async (idPlan) => {
+    const confirmarEliminar = confirm(
+      "¿Estas seguro que deseas eliminar este plan?"
+    );
+
+    if (confirmarEliminar) {
+      const result = await clientAxios.delete(
+        `/planesgym/${idPlan}`,
+        configHeaders
+      );
+
+      if (result.status === 200) {
+        alert(`${result.data.msg}`);
+
+        await getPlanes();
+      }
+    }
+  };
+
+  const deshabilitarPlan = async (idPlan) => {
+    const confirmarBloqueo = confirm(
+      "¿Estas seguro que deseas bloquear este plan?"
+    );
+
+    if (confirmarBloqueo) {
+      const result = await clientAxios.put(
+        `/planesgym/deshabilitar/${idPlan}`,
+        {},
+        configHeaders
+      );
+
+      if (result.status === 200) {
+        alert(`${result.data.msg}`);
+
+        await getPlanes();
+      }
+    }
+  };
+
+  const habilitarPlan = async (idPlan) => {
+    const confirmarHabilitar = confirm(
+      "¿Estas seguro que deseas habilitar este plan?"
+    );
+
+    if (confirmarHabilitar) {
+      const result = await clientAxios.put(
+        `/planesgym/habilitar/${idPlan}`,
+        {},
+        configHeaders
+      );
+
+      if (result.status === 200) {
+        alert(`${result.data.msg}`);
+
+        await getPlanes();
+      }
+    }
+  };
+
+  const totalPaginas = Math.ceil(planes.length / productosPorPagina);
 
   const indiceUltimoProducto = paginaActual * productosPorPagina;
   const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
-  const profesActuales = profes.slice(
+  const planesActuales = planes.slice(
     indicePrimerProducto,
     indiceUltimoProducto
   );
@@ -35,79 +94,20 @@ const ListaProfes = () => {
     setPaginaActual(numeroPagina);
   };
 
-  const eliminarProfe = async (idProfe) => {
-    const confirmarEliminar = confirm(
-      "¿Estas seguro que deseas eliminar este profesor?"
-    );
-
-    if (confirmarEliminar) {
-      const result = await clientAxios.delete(
-        `/profesgym/${idProfe}`,
-        configHeaders
-      );
-
-      if (result.status === 200) {
-        alert(`${result.data.msg}`);
-
-        await getProfes();
-      }
-    }
-  };
-
-  const deshabilitarProfe = async (idProfe) => {
-    const confirmarBloqueo = confirm(
-      "¿Estas seguro que deseas bloquear este profesor?"
-    );
-
-    if (confirmarBloqueo) {
-      const result = await clientAxios.put(
-        `/profesgym/deshabilitar/${idProfe}`,
-        {},
-        configHeaders
-      );
-
-      if (result.status === 200) {
-        alert(`${result.data.msg}`);
-
-        await getProfes();
-      }
-    }
-  };
-
-  const habilitarProfe = async (idProfe) => {
-    const confirmarHabilitar = confirm(
-      "¿Estas seguro que deseas habilitar este profesor?"
-    );
-
-    if (confirmarHabilitar) {
-      const result = await clientAxios.put(
-        `/profesgym/habilitar/${idProfe}`,
-        {},
-        configHeaders
-      );
-
-      if (result.status === 200) {
-        alert(`${result.data.msg}`);
-
-        await getProfes();
-      }
-    }
-  };
-
   return (
     <>
       <Container className="margin-top-listas margin-bottom-listas">
         <div className="d-flex justify-content-end">
-          <ModalLogin idPage="adminCrearProfes" getProfes={getProfes} />
+          <ModalLogin idPage="adminCrearPlanes" getPlanes={getPlanes} />
         </div>
 
         <TableC
-          idPage="profes"
-          profes={profesActuales}
-          eliminarProfe={eliminarProfe}
-          deshabilitarProfe={deshabilitarProfe}
-          habilitarProfe={habilitarProfe}
-          getProfes={getProfes}
+          idPage="planes"
+          planes={planesActuales}
+          eliminarPlan={eliminarPlan}
+          deshabilitarPlan={deshabilitarPlan}
+          habilitarPlan={habilitarPlan}
+          getPlanes={getPlanes}
         />
         <PaginationC
           totalPaginas={totalPaginas}
@@ -119,4 +119,4 @@ const ListaProfes = () => {
   );
 };
 
-export default ListaProfes;
+export default ListaPlanes;

@@ -1,9 +1,13 @@
+import { Container } from "react-bootstrap";
 import DetallePlanes from "../components/DetallePlanes";
+import "../css/MarginTop.css";
 
 const PaginaDetallePlanes = () => {
   return (
     <>
-      <DetallePlanes />
+      <Container className="margin-detalle-planes">
+        <DetallePlanes />
+      </Container>
     </>
   );
 };

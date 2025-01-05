@@ -1,17 +1,22 @@
 import { Button, Container } from "react-bootstrap";
 import "../css/DetalleProducto.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import clientAxios from "../helpers/axios.config";
+import clientAxios, { configHeaders } from "../helpers/axios.config";
+import "../css/MarginTop.css";
+import "../css/MarginBottom.css";
 
-const DetalleProducto = ({ setShowModalLogin }) => {
+const DetalleProducto = ({ setShowModalLogin, setCantidadTotal }) => {
   const params = useParams();
   const [producto, setProducto] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const cantidad = 1;
+  const [cantidad, setCantidad] = useState(1);
 
   const obtenerProducto = async () => {
-    const result = await clientAxios.get(`productosgym/${params.idProducto}`);
+    const result = await clientAxios.get(
+      `productosgym/${params.idProducto}`,
+      configHeaders
+    );
     setProducto(result.data);
     setIsLoading(false);
   };
@@ -28,18 +33,39 @@ const DetalleProducto = ({ setShowModalLogin }) => {
     return <h2>Producto no encontrado</h2>;
   }
 
-  const agregarAlCarrito = () => {
-    const token = JSON.parse(sessionStorage.getItem("token")) || "";
+  const agregarAlCarrito = async () => {
+    try {
+      const token = JSON.parse(sessionStorage.getItem("token")) || "";
 
-    if (!token) {
-      alert("Debes iniciar sesion para agregar el producto al carrito");
-      setShowModalLogin(true);
+      if (!token) {
+        alert("Debes iniciar sesion para agregar el producto al carrito");
+        setShowModalLogin(true);
+      }
+
+      const result = await clientAxios.post(
+        `/productosgym/agregarProductoCarrito/${params.idProducto}`,
+        { cantidad },
+        configHeaders
+      );
+
+      if (result.status === 200) {
+        alert(`${result.data.msg}`);
+      }
+
+      setCantidadTotal((prevCantidad) => prevCantidad + cantidad);
+    } catch (error) {
+      alert(`${error.response.msg}`);
     }
+  };
+
+  const aumentarCantidad = () => setCantidad(cantidad + 1);
+  const reducirCantidad = () => {
+    if (cantidad > 1) setCantidad(cantidad - 1);
   };
 
   return (
     <>
-      <Container className="my-5">
+      <Container className="margin-top-detalle-producto margin-bottom-detalle-producto">
         <div className="d-flex contenedor-producto-detalle">
           <div>
             <img
@@ -63,7 +89,7 @@ const DetalleProducto = ({ setShowModalLogin }) => {
               <Button
                 className="boton-signo text-center"
                 variant="warning"
-                // onClick={disminuirCantidad}
+                onClick={reducirCantidad}
               >
                 -
               </Button>
@@ -73,7 +99,7 @@ const DetalleProducto = ({ setShowModalLogin }) => {
               <Button
                 className="boton-signo"
                 variant="warning"
-                // onClick={aumentarCantidad}
+                onClick={aumentarCantidad}
               >
                 +
               </Button>

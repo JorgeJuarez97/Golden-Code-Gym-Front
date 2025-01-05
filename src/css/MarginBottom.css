@@ -1,0 +1,127 @@
+@media (max-width: 684px) and (min-width: 457px) {
+  .margin-bottom-planes {
+    margin-bottom: 200px;
+  }
+}
+
+@media (max-width: 456px) and (min-width: 321px) {
+  .margin-bottom-planes {
+    margin-bottom: 230px;
+  }
+}
+
+@media (max-width: 320px) and (min-width: 259px) {
+  .margin-bottom-planes {
+    margin-bottom: 270px;
+  }
+}
+
+@media (max-width: 258px) and (min-width: 200px) {
+  .margin-bottom-planes {
+    margin-bottom: 290px;
+  }
+}
+
+@media (max-width: 684px) and (min-width: 457px) {
+  .margin-bottom-clases {
+    margin-bottom: 220px;
+  }
+
+  .margin-bottom-productos {
+    margin-bottom: 220px;
+  }
+
+  .margin-bottom-detalle-producto {
+    margin-bottom: 260px;
+  }
+
+  .margin-bottom-pago-exitoso {
+    margin-bottom: 220px;
+  }
+
+  .margin-bottom-listas {
+    margin-bottom: 220px;
+  }
+
+  .margin-bottom-error {
+    margin-bottom: 220px;
+  }
+}
+
+@media (max-width: 456px) and (min-width: 315px) {
+  .margin-bottom-clases {
+    margin-bottom: 250px;
+  }
+
+  .margin-bottom-productos {
+    margin-bottom: 250px;
+  }
+
+  .margin-bottom-detalle-producto {
+    margin-bottom: 280px;
+  }
+
+  .margin-bottom-pago-exitoso {
+    margin-bottom: 250px;
+  }
+
+  .margin-bottom-listas {
+    margin-bottom: 250px;
+  }
+
+  .margin-bottom-error {
+    margin-bottom: 250px;
+  }
+}
+
+@media (max-width: 314px) {
+  .margin-bottom-clases {
+    margin-bottom: 290px;
+  }
+
+  .margin-bottom-productos {
+    margin-bottom: 290px;
+  }
+
+  .margin-bottom-detalle-producto {
+    margin-bottom: 320px;
+  }
+
+  .margin-bottom-carrito {
+    margin-bottom: 330px;
+  }
+
+  .margin-bottom-pago-exitoso {
+    margin-bottom: 290px;
+  }
+
+  .margin-bottom-listas {
+    margin-bottom: 280px;
+  }
+
+  .margin-bottom-error {
+    margin-bottom: 280px;
+  }
+}
+
+@media (max-width: 974px) and (min-width: 685px) {
+  .margin-bottom-detalle-producto {
+    margin-bottom: 140px;
+  }
+}
+
+@media (max-width: 458px) and (min-width: 315px) {
+  .margin-bottom-carrito {
+    margin-bottom: 270px;
+  }
+}
+
+@media (max-width: 739px) and (min-width: 685px) {
+  .margin-bottom-pago-exitoso {
+    margin-bottom: 160px;
+  }
+
+  .margin-bottom-listas {
+    margin-bottom: 160px;
+  }
+}

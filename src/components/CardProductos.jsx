@@ -5,8 +5,9 @@ import "../css/Planes.css";
 import TextoExpandido from "./TextoExpandido";
 import { Link } from "react-router-dom";
 import ModalLogin from "./ModalLogin";
-import { useState } from "react";
 import "../css/Infogym.css";
+import clientAxios, { configHeaders } from "../helpers/axios.config";
+import "../css/MarginTop.css";
 
 const CardProductos = ({
   idPage,
@@ -14,25 +15,33 @@ const CardProductos = ({
   indumentarias,
   clases,
   profes,
+  getClases,
   setShowModalLogin,
+  setCantidadTotal,
 }) => {
-  const agregarAlCarrito = () => {
-    const token = JSON.parse(sessionStorage.getItem("token")) || "";
+  const agregarAlCarrito = async (id) => {
+    try {
+      const token = JSON.parse(sessionStorage.getItem("token")) || "";
 
-    if (!token) {
-      alert("Debes iniciar sesion para agregar el producto al carrito");
-      setShowModalLogin(true);
+      if (!token) {
+        alert("Debes iniciar sesion para agregar el producto al carrito");
+        return setShowModalLogin(true);
+      }
+
+      const result = await clientAxios.post(
+        `/productosgym/agregarProductoCarrito/${id}`,
+        { cantidad: 1 },
+        configHeaders
+      );
+
+      if (result.status === 200) {
+        alert(`${result.data.msg}`);
+      }
+      setCantidadTotal((prevCantidad) => prevCantidad + 1);
+    } catch (error) {
+      alert(`${error.response.msg}`);
     }
   };
-
-  const [showModalReserva, setShowModalReserva] = useState(false);
-  const [selectedClass, setSelectedClass] = useState(null);
-
-  const handleShow = (clase) => {
-    setSelectedClass(clase);
-    setShowModalReserva(true);
-  };
-  const handleClose = () => setShowModalReserva(false);
 
   return (
     <>
@@ -70,7 +79,7 @@ const CardProductos = ({
                           <Button
                             className="boton-plan"
                             variant="warning"
-                            onClick={() => agregarAlCarrito(suplemento)}
+                            onClick={() => agregarAlCarrito(suplemento._id)}
                           >
                             Añadir al Carrito
                           </Button>
@@ -112,7 +121,7 @@ const CardProductos = ({
                           <Button
                             className="boton-plan"
                             variant="warning"
-                            onClick={() => agregarAlCarrito(indumentaria)}
+                            onClick={() => agregarAlCarrito(indumentaria._id)}
                           >
                             Añadir al Carrito
                           </Button>
@@ -143,14 +152,13 @@ const CardProductos = ({
                             maxLength={30}
                           />
                         </Card.Text>
-                        <div className="boton-añadir-carrito">
-                          <Button
-                            className="boton-plan"
-                            variant="warning"
-                            onClick={handleShow}
-                          >
-                            Reservar Cupo
-                          </Button>
+                        <div className="boton-añadir-carrito mt-2">
+                          <ModalLogin
+                            objeto={clase}
+                            idPage="reserva"
+                            getClases={getClases}
+                            setShowModalLogin={setShowModalLogin}
+                          />
                         </div>
                       </Card.Body>
                     </Card>
@@ -193,11 +201,6 @@ const CardProductos = ({
             )}
         </Row>
       </Container>
-      <ModalLogin
-        show={showModalReserva}
-        handleClose={handleClose}
-        selectedClass={selectedClass}
-      />
     </>
   );
 };

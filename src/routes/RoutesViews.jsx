@@ -13,20 +13,38 @@ import PanelAdministrador from "../pages/PanelAdministrador";
 import ListaProductosSuplementos from "../pages/ListaProductosSuplementos";
 import PaginaContacto from "../pages/PaginaContacto";
 import PaginaSobreNosotros from "../pages/PaginaSobreNosotros";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListaProductosIndumentarias from "../pages/ListaProductosIndumentarias";
 import ListaClases from "../pages/ListaClases";
 import ListaUsuarios from "../pages/ListaUsuarios";
 import ListaProfes from "../pages/ListaProfes";
+import ListaPlanes from "../pages/ListaPlanes";
+import PagoExitoso from "../pages/PagoExitoso";
+import Error404 from "../pages/Error404";
+import PrivateRoute from "../components/PrivateRoute";
 
 const RoutesViews = () => {
   const [showModalLogin, setShowModalLogin] = useState(false);
+  const [cantidadTotal, setCantidadTotal] = useState(0);
+
+  useEffect(() => {
+    const cantidadGuardada = parseInt(localStorage.getItem("cantidadTotal"));
+    if (cantidadGuardada) {
+      setCantidadTotal(parseInt(cantidadGuardada, 10));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cantidadTotal", cantidadTotal);
+  }, [cantidadTotal]);
 
   return (
     <>
       <NavbarC
         setShowModalLogin={setShowModalLogin}
         showModalLogin={showModalLogin}
+        cantidadTotal={cantidadTotal}
+        setCantidadTotal={setCantidadTotal}
       />
       <main>
         <Routes>
@@ -40,39 +58,109 @@ const RoutesViews = () => {
           />
           <Route
             path="/suplementos"
-            element={<Suplementos setShowModalLogin={setShowModalLogin} />}
+            element={
+              <Suplementos
+                setShowModalLogin={setShowModalLogin}
+                setCantidadTotal={setCantidadTotal}
+              />
+            }
           />
           <Route
             path="/indumentarias"
-            element={<Indumentaria setShowModalLogin={setShowModalLogin} />}
+            element={
+              <Indumentaria
+                setShowModalLogin={setShowModalLogin}
+                setCantidadTotal={setCantidadTotal}
+              />
+            }
           />
           <Route
             path="/paginadetalleplanes/:idPlan"
             element={<PaginaDetallePlanes />}
           />
-          <Route path="/clases" element={<Clases />} />
+          <Route
+            path="/clases"
+            element={<Clases setShowModalLogin={setShowModalLogin} />}
+          />
           <Route
             path="/detalleproducto/:tipo/:idProducto"
-            element={<DetalleProducto setShowModalLogin={setShowModalLogin} />}
+            element={
+              <DetalleProducto
+                setShowModalLogin={setShowModalLogin}
+                setCantidadTotal={setCantidadTotal}
+              />
+            }
           />
-          <Route path="/carrito" element={<CarritoPage />} />
-          <Route path="/paneladministrador" element={<PanelAdministrador />} />
+          <Route
+            path="/carrito"
+            element={<CarritoPage setCantidadTotal={setCantidadTotal} />}
+          />
+          <Route
+            path="/paneladministrador"
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <PanelAdministrador />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/listaproductossuplementos"
-            element={<ListaProductosSuplementos />}
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <ListaProductosSuplementos />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/listaproductosindumentarias"
-            element={<ListaProductosIndumentarias />}
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <ListaProductosIndumentarias />
+              </PrivateRoute>
+            }
           />
-          <Route path="/listausuarios" element={<ListaUsuarios />} />
-          <Route path="/listaclases" element={<ListaClases />} />
-          <Route path="/listaprofes" element={<ListaProfes />} />
+          <Route
+            path="/listausuarios"
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <ListaUsuarios />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/listaclases"
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <ListaClases />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/listaprofes"
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <ListaProfes />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/listaplanes"
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <ListaPlanes />
+              </PrivateRoute>
+            }
+          />
           <Route path="/paginacontacto" element={<PaginaContacto />} />
           <Route
             path="/paginasobrenosotros"
             element={<PaginaSobreNosotros />}
           />
+          <Route
+            path="/pagoexitoso"
+            element={<PagoExitoso setCantidadTotal={setCantidadTotal} />}
+          />
+          <Route path="/error404" element={<Error404 />} />
         </Routes>
       </main>
       <Footer />
