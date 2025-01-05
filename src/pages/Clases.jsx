@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import CardProductos from "../components/CardProductos";
-import clientAxios from "../helpers/axios.config";
+import clientAxios, { configHeaders } from "../helpers/axios.config";
+import "../css/MarginTop.css";
+import { Container } from "react-bootstrap";
+import "../css/MarginBottom.css";
 
-const Clases = () => {
+const Clases = ({ setShowModalLogin }) => {
   const [clases, setClases] = useState([]);
 
   const getClases = async () => {
-    const products = await clientAxios.get("/clasesgym");
+    const products = await clientAxios.get("/clasesgym", configHeaders);
     setClases(products.data);
   };
 
@@ -15,8 +18,15 @@ const Clases = () => {
   }, []);
   return (
     <>
-      <h1 className="text-center">Bienvenido a nuestras clases</h1>
-      <CardProductos idPage="clases" clases={clases} />
+      <Container className="margin-top-clases margin-bottom-clases">
+        <h1 className="text-center">Bienvenido a nuestras clases</h1>
+        <CardProductos
+          idPage="clases"
+          clases={clases}
+          getClases={getClases}
+          setShowModalLogin={setShowModalLogin}
+        />
+      </Container>
     </>
   );
 };

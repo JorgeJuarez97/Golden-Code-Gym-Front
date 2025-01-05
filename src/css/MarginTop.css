@@ -1,0 +1,79 @@
+.margin-top-clases {
+  margin-top: 190px;
+}
+
+.margin-top-productos {
+  margin-top: 160px;
+}
+
+.margin-top-registro {
+  margin-top: 180px;
+}
+
+.margin-top-detalle-producto {
+  margin-top: 180px;
+}
+
+.margin-top-carrito {
+  margin-top: 150px;
+}
+
+.margin-top-panel-admin {
+  margin-top: 160px;
+}
+
+.margin-top-listas {
+  margin-top: 190px;
+}
+
+.margin-detalle-planes {
+  margin-top: 180px;
+}
+
+.margin-top-pago-exitoso {
+  margin-top: 150px;
+}
+
+.margin-top-error {
+  margin-top: 170px;
+}
+
+@media (max-width: 548px) {
+  .margin-top-infogym {
+    margin-top: 200px;
+  }
+}
+
+@media (max-width: 292px) {
+  .margin-top-clases {
+    margin-top: 210px;
+  }
+
+  .margin-top-registro {
+    margin-top: 220px;
+  }
+
+  .margin-top-pago-exitoso {
+    margin-top: 190px;
+  }
+}
+
+@media (max-width: 293px) {
+  .margin-top-productos {
+    margin-top: 200px;
+  }
+
+  .margin-top-detalle-producto {
+    margin-top: 220px;
+  }
+
+  .margin-top-carrito {
+    margin-top: 240px;
+  }
+}
+
+@media (max-width: 294px) {
+  .margin-top-carrito {
+    margin-top: 180px;
+  }
+}

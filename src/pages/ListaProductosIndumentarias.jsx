@@ -3,12 +3,13 @@ import TableC from "../components/TableC";
 import PaginationC from "../components/PaginationC";
 import { useEffect, useState } from "react";
 import clientAxios, { configHeaders } from "../helpers/axios.config";
-// import ModalLogin from "../components/ModalLogin";
+import ModalLogin from "../components/ModalLogin";
+import "../css/MarginTop.css";
+import "../css/MarginBottom.css";
 
 const ListaProductosIndumentarias = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const productosPorPagina = 6;
-  const [showAgregarModal, setShowAgregarModal] = useState(false);
 
   const [indumentarias, setIndumentarias] = useState([]);
 
@@ -93,26 +94,14 @@ const ListaProductosIndumentarias = () => {
     setPaginaActual(numeroPagina);
   };
 
-  // const actualizarProductos = (productosActualizados) => {
-  //   setProductos(productosActualizados);
-
-  //   localStorage.setItem(
-  //     tipo === "suplementos" ? "suplementos" : "indumentarias",
-  //     JSON.stringify(productosActualizados)
-  //   );
-  // };
-
   return (
     <>
-      <Container>
+      <Container className="margin-top-listas margin-bottom-listas">
         <div className="d-flex justify-content-end">
-          <Button
-            variant="success"
-            className="mb-3"
-            onClick={() => setShowAgregarModal(true)}
-          >
-            Agregar Producto
-          </Button>
+          <ModalLogin
+            idPage="adminCrearIndumentarias"
+            getIndumentarias={getIndumentarias}
+          />
         </div>
 
         <TableC
@@ -121,7 +110,7 @@ const ListaProductosIndumentarias = () => {
           eliminarProducto={eliminarProducto}
           deshabilitarProducto={deshabilitarProducto}
           habilitarProducto={habilitarProducto}
-          // actualizarProductos={actualizarProductos}
+          getIndumentarias={getIndumentarias}
         />
         <PaginationC
           totalPaginas={totalPaginas}
@@ -129,13 +118,6 @@ const ListaProductosIndumentarias = () => {
           cambiarPagina={cambiarPagina}
         />
       </Container>
-      {/* <ModalLogin
-        show={showAgregarModal}
-        handleClose={() => setShowAgregarModal(false)}
-        producto={null}
-        setProductos={actualizarProductos}
-        productos={productos}
-      /> */}
     </>
   );
 };

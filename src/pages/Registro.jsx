@@ -1,9 +1,13 @@
+import { Container } from "react-bootstrap";
 import FormC from "../components/FormC";
+import "../css/MarginTop.css";
 
 const Registro = ({ setShowModalLogin }) => {
   return (
     <>
-      <FormC idPage="registro" setShowModalLogin={setShowModalLogin} />
+      <Container className="margin-top-registro">
+        <FormC idPage="registro" setShowModalLogin={setShowModalLogin} />
+      </Container>
     </>
   );
 };

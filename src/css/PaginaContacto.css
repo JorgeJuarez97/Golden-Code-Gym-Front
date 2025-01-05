@@ -1,3 +1,7 @@
+.contenedor-contacto {
+  margin-top: 200px;
+}
+
 @media (max-width: 991px) and (min-width: 737px) {
   .contenedor-contacto {
     margin-bottom: 130px;

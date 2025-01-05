@@ -12,3 +12,10 @@ export const configHeaders = {
     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
   },
 };
+
+export const configHeadersImg = {
+  headers: {
+    "content-type": "multipart/form-data",
+    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+  },
+};

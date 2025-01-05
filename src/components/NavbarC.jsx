@@ -4,16 +4,56 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../css/NavbarC.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ModalLogin from "./ModalLogin";
 import { LinkContainer } from "react-router-bootstrap";
+import ApiClima from "./ApiClima";
+import clientAxios, { configHeaders } from "../helpers/axios.config";
 
-const NavbarC = ({ setShowModalLogin, showModalLogin }) => {
+const NavbarC = ({
+  setShowModalLogin,
+  showModalLogin,
+  cantidadTotal,
+  setCantidadTotal,
+}) => {
   const navigate = useNavigate();
   const token = JSON.parse(sessionStorage.getItem("token")) || "";
   const rol = JSON.parse(sessionStorage.getItem("rol")) || "";
 
-  const cerrarSesion = () => {
+  const cerrarSesion = async () => {
+    if (rol === "user") {
+      const result = await clientAxios.get(
+        "/productosgym/obtenerProductosCarrito",
+        configHeaders
+      );
+
+      const carrito = result.data.productos;
+
+      if (carrito.length > 0) {
+        const confirmarEliminar = confirm(
+          "¿Estás seguro que deseas eliminar todos los productos del carrito antes de cerrar sesión?"
+        );
+        if (confirmarEliminar) {
+          for (const producto of carrito) {
+            try {
+              const result = await clientAxios.delete(
+                `/productosgym/eliminarProductoCarrito/${producto._id}`,
+                configHeaders
+              );
+            } catch (error) {
+              alert(
+                `Error eliminando producto: ${
+                  error.response?.data?.msg || error.message
+                }`
+              );
+            }
+          }
+          setCantidadTotal(0);
+          alert("Productos eliminados del carrito");
+        }
+      }
+    }
+
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("rol");
 
@@ -40,27 +80,9 @@ const NavbarC = ({ setShowModalLogin, showModalLogin }) => {
     setMenuAbierto(false);
   };
 
-  const [totalItems, setTotalItems] = useState(0);
-
-  const actualizarContadorCarrito = () => {
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    const total = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
-    setTotalItems(total);
-  };
-
-  useEffect(() => {
-    actualizarContadorCarrito();
-
-    window.addEventListener("storage", actualizarContadorCarrito);
-
-    return () => {
-      window.removeEventListener("storage", actualizarContadorCarrito);
-    };
-  }, []);
-
   return (
     <>
-      <Navbar expand="md" className="navbar-gym">
+      <Navbar expand="md" className="navbar-gym fixed-top">
         <Container fluid>
           <LinkContainer
             to={token && rol === "admin" ? "/paneladministrador" : "/"}
@@ -114,6 +136,9 @@ const NavbarC = ({ setShowModalLogin, showModalLogin }) => {
                   </LinkContainer>
                   <LinkContainer to="/listaprofes" className="drop-lista">
                     <NavDropdown.Item>Profesores</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/listaplanes" className="drop-lista">
+                    <NavDropdown.Item>Planes</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               ) : (
@@ -177,14 +202,17 @@ const NavbarC = ({ setShowModalLogin, showModalLogin }) => {
               to="/carrito"
             >
               <i className="bi bi-cart-fill icono-carrito"></i>
-              <span className="contador-carrito">{totalItems}</span>
+              <span className="contador-carrito">{cantidadTotal}</span>
             </NavLink>
           )}
+        </Container>
+        <Container>
+          <ApiClima />
         </Container>
       </Navbar>
       <ModalLogin
         show={showModalLogin}
-        handleClose={handleClose}
+        handleCloseLogin={handleClose}
         setShowModalLogin={setShowModalLogin}
       />
     </>
