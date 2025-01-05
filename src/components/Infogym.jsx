@@ -3,6 +3,7 @@ import "../css/Infogym.css";
 import { useEffect, useState } from "react";
 import clientAxios, { configHeaders } from "../helpers/axios.config";
 import CardProductos from "./CardProductos";
+import "../css/MarginTop.css";
 
 const Infogym = () => {
   const [profes, setProfes] = useState([]);
@@ -17,7 +18,7 @@ const Infogym = () => {
   }, []);
   return (
     <>
-      <Container className="contenedor-info">
+      <Container className="contenedor-info margin-top-infogym">
         <div>
           <p className="text-center titulo-bienvenida">
             <strong>¡Bienvenidos a Golden Code Gym!</strong>

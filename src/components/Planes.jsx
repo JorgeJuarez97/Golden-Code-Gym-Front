@@ -5,81 +5,60 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "../css/Planes.css";
+import clientAxios, { configHeaders } from "../helpers/axios.config";
+import { useEffect, useState } from "react";
+import "../css/MarginBottom.css";
 
-function Planes() {
+const Planes = () => {
+  const [planes, setPlanes] = useState([]);
+
+  const getPlanes = async () => {
+    const result = await clientAxios.get("/planesgym", configHeaders);
+    setPlanes(result.data);
+  };
+
+  useEffect(() => {
+    getPlanes();
+  }, []);
+
   return (
     <>
       <Container className="titulo-seccion">
         <h1>NUESTROS PLANES</h1>
       </Container>
-      <Container>
+      <Container className="margin-bottom-planes">
         <Row className="contenedor-plan">
-          <Col xs={12} md={6} lg={4} className="plan">
-            <Card className="plan-card text-center">
-              <Card.Body className="cuerpo-plan">
-                <Card.Title className="titulo-plan">
-                  PLAN MUSCULACION
-                </Card.Title>
-                <Card.Text className="descripcion-plan">
-                  Acceso a zona de musculacion.
-                </Card.Text>
-                <div className="precio">
-                  <p>
-                    <strong>$20.000/Mes</strong>
-                  </p>
-                </div>
-                <Link to="/paginadetalleplanes/musculacion">
-                  <Button className="boton-plan" variant="warning">
-                    Elige este plan
-                  </Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="plan">
-            <Card className="plan-card text-center">
-              <Card.Body className="cuerpo-plan">
-                <Card.Title className="titulo-plan">PLAN CLASES</Card.Title>
-                <Card.Text className="descripcion-plan">
-                  Acceso a todas las clases.
-                </Card.Text>
-                <div className="precio">
-                  <p>
-                    <strong>$25.000/Mes</strong>
-                  </p>
-                </div>
-                <Link to="/paginadetalleplanes/clases">
-                  <Button className="boton-plan" variant="warning">
-                    Elige este plan
-                  </Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} md={6} lg={4} className="plan">
-            <Card className="plan-card text-center">
-              <Card.Body className="cuerpo-plan">
-                <Card.Title className="titulo-plan">PLAN FULL</Card.Title>
-                <Card.Text className="descripcion-plan">
-                  Acceso a zona de musculacion y a todas las clases.
-                </Card.Text>
-                <div className="precio">
-                  <p>
-                    <strong>$40.000/Mes</strong>
-                  </p>
-                </div>
-                <Link to="/paginadetalleplanes/full">
-                  <Button className="boton-plan" variant="warning">
-                    Elige este plan
-                  </Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Col>
+          {planes.map(
+            (plan) =>
+              !plan.bloqueado && (
+                <Col xs={12} md={6} lg={4} className="plan" key={plan._id}>
+                  <Card className="plan-card text-center">
+                    <Card.Body className="cuerpo-plan">
+                      <Card.Title className="titulo-plan">
+                        {plan.nombrePlan}
+                      </Card.Title>
+                      <Card.Text className="descripcion-plan">
+                        {plan.acceso}
+                      </Card.Text>
+                      <div className="precio">
+                        <p>
+                          <strong>${plan.cuotaMensual}</strong>
+                        </p>
+                      </div>
+                      <Link to={`/paginadetalleplanes/${plan._id}`}>
+                        <Button className="boton-plan" variant="warning">
+                          Elige este plan
+                        </Button>
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )
+          )}
         </Row>
       </Container>
     </>
   );
-}
+};
 
 export default Planes;

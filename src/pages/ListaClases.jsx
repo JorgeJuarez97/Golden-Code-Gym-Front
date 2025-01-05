@@ -1,18 +1,20 @@
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import TableC from "../components/TableC";
 import { useEffect, useState } from "react";
 import PaginationC from "../components/PaginationC";
 import clientAxios, { configHeaders } from "../helpers/axios.config";
+import ModalLogin from "../components/ModalLogin";
+import "../css/MarginTop.css";
+import "../css/MarginBottom.css";
 
 const ListaClases = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const productosPorPagina = 6;
-  const [showAgregarModal, setShowAgregarModal] = useState(false);
 
   const [clases, setClases] = useState([]);
 
   const getClases = async () => {
-    const products = await clientAxios.get("/clasesgym");
+    const products = await clientAxios.get("/clasesgym", configHeaders);
     setClases(products.data);
   };
 
@@ -92,26 +94,11 @@ const ListaClases = () => {
     setPaginaActual(numeroPagina);
   };
 
-  // const actualizarProductos = (productosActualizados) => {
-  //   setSuplementos(productosActualizados);
-
-  //   localStorage.setItem(
-  //     tipo === "suplementos" ? "suplementos" : "indumentarias",
-  //     JSON.stringify(productosActualizados)
-  //   );
-  // };
-
   return (
     <>
-      <Container>
+      <Container className="margin-top-listas margin-bottom-listas">
         <div className="d-flex justify-content-end">
-          <Button
-            variant="success"
-            className="mb-3"
-            onClick={() => setShowAgregarModal(true)}
-          >
-            Agregar Clase
-          </Button>
+          <ModalLogin idPage="adminCrearClases" getClases={getClases} />
         </div>
 
         <TableC
@@ -120,7 +107,7 @@ const ListaClases = () => {
           eliminarClase={eliminarClase}
           deshabilitarClase={deshabilitarClase}
           habilitarClase={habilitarClase}
-          // actualizarProductos={actualizarProductos}
+          getClases={getClases}
         />
         <PaginationC
           totalPaginas={totalPaginas}
@@ -128,13 +115,6 @@ const ListaClases = () => {
           cambiarPagina={cambiarPagina}
         />
       </Container>
-      {/* <ModalLogin
-        show={showAgregarModal}
-        handleClose={() => setShowAgregarModal(false)}
-        producto={null}
-        setProductos={actualizarProductos}
-        productos={productos}
-      /> */}
     </>
   );
 };

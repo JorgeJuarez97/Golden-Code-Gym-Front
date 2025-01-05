@@ -1,5 +1,7 @@
 .navbar-gym {
   background-color: gold;
+  display: flex;
+  flex-direction: column;
 }
 
 .link-navbar {

@@ -12,13 +12,6 @@
   color: white;
 }
 
-.texto-oculto-id {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 50px;
-}
-
 .texto-oculto-clase {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -33,9 +26,113 @@
   width: 300px;
 }
 
-.texto-oculto-profe {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 200px;
+@media (max-width: 970px) and (min-width: 440px) {
+  .tabla-admin tbody tr {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+
+  .tabla-admin thead {
+    display: none;
+  }
+
+  .tabla-admin td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .tabla-admin td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex: 1;
+  }
+
+  .texto-oculto {
+    width: 200px;
+  }
+
+  .texto-oculto-id {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+  }
+
+  .texto-oculto-profe {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
+  }
+}
+
+@media (max-width: 439px) {
+  .tabla-admin tbody tr {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+
+  .tabla-admin thead {
+    display: none;
+  }
+
+  .tabla-admin td {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .tabla-admin td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex: 1;
+  }
+
+  .texto-oculto {
+    width: 200px;
+  }
+
+  .texto-oculto-id {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+  }
+
+  .texto-oculto-profe {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
+  }
+}
+
+@media (min-width: 971px) {
+  .texto-oculto-profe {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 50px;
+  }
+
+  .texto-oculto-id {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 50px;
+  }
+
+  .texto-oculto-profe {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
+  }
 }

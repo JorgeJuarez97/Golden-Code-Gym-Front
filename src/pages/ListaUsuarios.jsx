@@ -1,13 +1,15 @@
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import TableC from "../components/TableC";
 import { useEffect, useState } from "react";
 import PaginationC from "../components/PaginationC";
 import clientAxios, { configHeaders } from "../helpers/axios.config";
+import ModalLogin from "../components/ModalLogin";
+import "../css/MarginTop.css";
+import "../css/MarginBottom.css";
 
 const ListaUsuarios = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const productosPorPagina = 6;
-  const [showAgregarModal, setShowAgregarModal] = useState(false);
 
   const [usuarios, setUsuarios] = useState([]);
 
@@ -94,15 +96,9 @@ const ListaUsuarios = () => {
 
   return (
     <>
-      <Container>
+      <Container className="margin-top-listas margin-bottom-listas">
         <div className="d-flex justify-content-end">
-          <Button
-            variant="success"
-            className="mb-3"
-            onClick={() => setShowAgregarModal(true)}
-          >
-            Crear Usuario
-          </Button>
+          <ModalLogin idPage="adminCrearUsuarios" getUsuarios={getUsuarios} />
         </div>
 
         <TableC
@@ -111,6 +107,7 @@ const ListaUsuarios = () => {
           eliminarUsuario={eliminarUsuario}
           deshabilitarUsuario={deshabilitarUsuario}
           habilitarUsuario={habilitarUsuario}
+          getUsuarios={getUsuarios}
         />
         <PaginationC
           totalPaginas={totalPaginas}
@@ -118,13 +115,6 @@ const ListaUsuarios = () => {
           cambiarPagina={cambiarPagina}
         />
       </Container>
-      {/* <ModalLogin
-        show={showAgregarModal}
-        handleClose={() => setShowAgregarModal(false)}
-        producto={null}
-        setProductos={actualizarProductos}
-        productos={productos}
-      /> */}
     </>
   );
 };

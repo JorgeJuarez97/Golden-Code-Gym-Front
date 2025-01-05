@@ -1,6 +1,7 @@
 .contenedor-sobre-nosotros {
   display: flex;
   flex-direction: column;
+  margin-top: 200px;
 }
 
 .texto-sobre-nosotros {
@@ -35,8 +36,20 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 320px) and (min-width: 259px) {
   .contenedor-sobre-nosotros {
-    margin-bottom: 280px;
+    margin-bottom: 290px;
+  }
+}
+
+@media (max-width: 258px) and (min-width: 200px) {
+  .contenedor-sobre-nosotros {
+    margin-bottom: 300px;
+  }
+}
+
+@media (max-width: 293px) {
+  .contenedor-sobre-nosotros {
+    margin-top: 230px;
   }
 }
