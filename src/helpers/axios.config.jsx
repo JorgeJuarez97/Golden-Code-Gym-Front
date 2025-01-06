@@ -6,16 +6,35 @@ const clientAxios = axios.create({
 
 export default clientAxios;
 
+clientAxios.interceptors.request.use(
+  (config) => {
+    const token = JSON.parse(sessionStorage.getItem("token"));
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export const configHeaders = {
   headers: {
     "content-type": "application/json",
-    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    Authorization: `Bearer ${
+      JSON.parse(sessionStorage.getItem("token")) || ""
+    }`,
   },
 };
 
 export const configHeadersImg = {
   headers: {
     "content-type": "multipart/form-data",
-    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    Authorization: `Bearer ${
+      JSON.parse(sessionStorage.getItem("token")) || ""
+    }`,
   },
 };
