@@ -8,7 +8,7 @@ function CarouselC() {
         <Carousel.Item className="carousel-gym">
           <img
             className="imagen-carousel"
-            src="https://s10.s3c.es/imag/_v0/1263x710/6/3/9/ejercicios-perder-peso.jpg"
+            src="https://res.cloudinary.com/dyd8k74ic/image/upload/v1736186657/ejercicios-perder-peso_rdjm82.jpg"
             alt="imagen rutina"
           />
           <Carousel.Caption>
@@ -24,7 +24,7 @@ function CarouselC() {
         <Carousel.Item className="carousel-gym">
           <img
             className="imagen-carousel"
-            src="https://supergains.com.co/wp-content/uploads/2023/06/Banner-2-Supergains.jpg"
+            src="https://res.cloudinary.com/dyd8k74ic/image/upload/v1736186706/Banner-2-Supergains_pc1wqp.jpg"
             alt="imagen productos"
           />
           <Carousel.Caption>
@@ -40,7 +40,7 @@ function CarouselC() {
         <Carousel.Item className="carousel-gym">
           <img
             className="imagen-carousel"
-            src="https://elmarketingdeportivo.com/wp-content/uploads/2021/11/Imagen-destacada-1024x576.jpg"
+            src="https://res.cloudinary.com/dyd8k74ic/image/upload/v1736186735/Imagen-destacada-1024x576_xoasl3.jpg"
             alt="imagen ropa"
           />
           <Carousel.Caption>

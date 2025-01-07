@@ -2,6 +2,10 @@
   margin-top: 200px;
 }
 
+.texto-contacto-info {
+  font-size: 1.7rem;
+}
+
 @media (max-width: 991px) and (min-width: 737px) {
   .contenedor-contacto {
     margin-bottom: 130px;
@@ -24,11 +28,19 @@
   .contenedor-contacto {
     margin-bottom: 270px;
   }
+
+  .texto-contacto-info {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 314px) {
   .contenedor-contacto {
     margin-bottom: 300px;
+  }
+
+  .texto-contacto-info {
+    font-size: 1rem;
   }
 }
 

@@ -22,6 +22,8 @@ import ListaPlanes from "../pages/ListaPlanes";
 import PagoExitoso from "../pages/PagoExitoso";
 import Error404 from "../pages/Error404";
 import PrivateRoute from "../components/PrivateRoute";
+import DatosInfoPlanUser from "../pages/DatosInfoPlanUser";
+import ReservasClases from "../pages/ReservasClases";
 
 const RoutesViews = () => {
   const [showModalLogin, setShowModalLogin] = useState(false);
@@ -161,6 +163,22 @@ const RoutesViews = () => {
             element={<PagoExitoso setCantidadTotal={setCantidadTotal} />}
           />
           <Route path="/error404" element={<Error404 />} />
+          <Route
+            path="/datosinfoplanuser"
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <DatosInfoPlanUser />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/reservasclases"
+            element={
+              <PrivateRoute rolRuta={"admin"}>
+                <ReservasClases />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />

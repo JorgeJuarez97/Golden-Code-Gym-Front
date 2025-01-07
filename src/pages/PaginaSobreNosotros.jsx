@@ -43,7 +43,7 @@ const PaginaSobreNosotros = () => {
 
         <div className="mt-5">
           <h2 className="text-center">Valores de la Empresa</h2>
-          <p className="texto-sobre-nosotros mt-3">
+          <div className="texto-sobre-nosotros mt-3">
             <ul>
               <li className="my-3">
                 <strong>Compromiso con la calidad: </strong>
@@ -61,7 +61,7 @@ const PaginaSobreNosotros = () => {
                 de condición física.
               </li>
             </ul>
-          </p>
+          </div>
         </div>
 
         <div className="mt-5">
@@ -80,6 +80,7 @@ const PaginaSobreNosotros = () => {
                   md={6}
                   lg={4}
                   className="d-flex justify-content-center"
+                  key={imagen.id}
                 >
                   <Card className="imagen-sobre-nosotros">
                     <Card.Img

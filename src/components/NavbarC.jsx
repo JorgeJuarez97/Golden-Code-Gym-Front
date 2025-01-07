@@ -110,59 +110,110 @@ const NavbarC = ({
             <Nav className="me-auto align-items-center">
               <NavLink
                 className="link-navbar nav-link"
+                onClick={() => setAbierto(false)}
                 to={token && rol === "admin" ? "/paneladministrador" : "/"}
               >
                 Inicio
               </NavLink>
               {token && rol === "admin" ? (
-                <NavDropdown title="Listas" id="basic-nav-dropdown">
-                  <LinkContainer
-                    to="/listaproductossuplementos"
-                    className="drop-lista"
+                <>
+                  <NavDropdown title="Listas" id="basic-nav-dropdown">
+                    <LinkContainer
+                      to="/listaproductossuplementos"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
+                      <NavDropdown.Item>Suplementos</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer
+                      to="/listaproductosindumentarias"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
+                      <NavDropdown.Item>
+                        Indumentaria Deportiva
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer
+                      to="/listaclases"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
+                      <NavDropdown.Item>Clases</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer
+                      to="/listausuarios"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
+                      <NavDropdown.Item>Usuarios</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer
+                      to="/listaprofes"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
+                      <NavDropdown.Item>Profesores</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer
+                      to="/listaplanes"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
+                      <NavDropdown.Item>Planes</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                  <NavLink
+                    className="link-navbar nav-link"
+                    to="/datosinfoplanuser"
+                    onClick={() => setAbierto(false)}
                   >
-                    <NavDropdown.Item>Suplementos</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer
-                    to="/listaproductosindumentarias"
-                    className="drop-lista"
+                    Usuarios InfoPlanes
+                  </NavLink>
+                  <NavLink
+                    className="link-navbar nav-link"
+                    to="/reservasclases"
+                    onClick={() => setAbierto(false)}
                   >
-                    <NavDropdown.Item>Indumentaria Deportiva</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/listaclases" className="drop-lista">
-                    <NavDropdown.Item>Clases</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/listausuarios" className="drop-lista">
-                    <NavDropdown.Item>Usuarios</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/listaprofes" className="drop-lista">
-                    <NavDropdown.Item>Profesores</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/listaplanes" className="drop-lista">
-                    <NavDropdown.Item>Planes</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
+                    Reservas de Clases
+                  </NavLink>
+                </>
               ) : (
                 <>
                   <NavLink
                     className="link-navbar nav-link"
                     to="/paginacontacto"
+                    onClick={() => setAbierto(false)}
                   >
                     Contacto
                   </NavLink>
                   <NavLink
                     className="link-navbar nav-link"
                     to="/paginasobrenosotros"
+                    onClick={() => setAbierto(false)}
                   >
                     Sobre Nosotros
                   </NavLink>
-                  <NavLink className="link-navbar nav-link" to="/clases">
+                  <NavLink
+                    className="link-navbar nav-link"
+                    to="/clases"
+                    onClick={() => setAbierto(false)}
+                  >
                     Clases
                   </NavLink>
                   <NavDropdown title="Productos" id="basic-nav-dropdown">
-                    <LinkContainer to="/suplementos" className="drop-lista">
+                    <LinkContainer
+                      to="/suplementos"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
                       <NavDropdown.Item>Suplementos</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/indumentarias" className="drop-lista">
+                    <LinkContainer
+                      to="/indumentarias"
+                      className="drop-lista"
+                      onClick={() => setAbierto(false)}
+                    >
                       <NavDropdown.Item>
                         Indumentaria Deportiva
                       </NavDropdown.Item>
@@ -176,17 +227,30 @@ const NavbarC = ({
                 <NavLink
                   className="link-navbar nav-link"
                   to="#"
-                  onClick={cerrarSesion}
+                  onClick={() => {
+                    cerrarSesion();
+                    setAbierto(false);
+                  }}
                 >
                   Cerrar Sesion
                 </NavLink>
               </Nav>
             ) : (
               <Nav className="ms-auto align-items-center">
-                <NavLink className="link-navbar nav-link" onClick={handleShow}>
+                <NavLink
+                  className="link-navbar nav-link"
+                  onClick={() => {
+                    handleShow();
+                    setAbierto(false);
+                  }}
+                >
                   Iniciar Sesion
                 </NavLink>
-                <NavLink className="link-navbar nav-link" to="/registro">
+                <NavLink
+                  className="link-navbar nav-link"
+                  to="/registro"
+                  onClick={() => setAbierto(false)}
+                >
                   Registrarse
                 </NavLink>
               </Nav>

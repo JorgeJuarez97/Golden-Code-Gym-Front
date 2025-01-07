@@ -1,6 +1,17 @@
+.margin-bottom-info-plan-user-lista {
+  margin-bottom: 20px;
+}
+.margin-bottom-info-plan-user-principal {
+  margin-bottom: 150px;
+}
+
 @media (max-width: 684px) and (min-width: 457px) {
   .margin-bottom-planes {
     margin-bottom: 200px;
+  }
+
+  .margin-bottom-info-plan-user-principal {
+    margin-bottom: 260px;
   }
 }
 
@@ -8,17 +19,29 @@
   .margin-bottom-planes {
     margin-bottom: 230px;
   }
+
+  .margin-bottom-info-plan-user-principal {
+    margin-bottom: 290px;
+  }
 }
 
 @media (max-width: 320px) and (min-width: 259px) {
   .margin-bottom-planes {
     margin-bottom: 270px;
   }
+
+  .margin-bottom-info-plan-user-principal {
+    margin-bottom: 330px;
+  }
 }
 
 @media (max-width: 258px) and (min-width: 200px) {
   .margin-bottom-planes {
     margin-bottom: 290px;
+  }
+
+  .margin-bottom-info-plan-user-principal {
+    margin-bottom: 350px;
   }
 }
 

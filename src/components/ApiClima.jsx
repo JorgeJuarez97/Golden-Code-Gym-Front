@@ -13,7 +13,6 @@ const ApiClima = () => {
 
     try {
       const result = await axios.get(url);
-      console.log(result);
       setWeather(result.data);
       setError(null);
     } catch (error) {

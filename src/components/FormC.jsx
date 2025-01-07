@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "../css/FormC.css";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import clientAxios, {
   configHeaders,
   configHeadersImg,
@@ -29,6 +29,7 @@ const FormC = ({
   handleCloseAgregarModal,
   setShowModalReserva,
 }) => {
+  const params = useParams();
   const [imagen, setImagen] = useState(null);
   const [infoUsuarios, setInfoUsuarios] = useState(
     usuarios || {
@@ -651,6 +652,36 @@ const FormC = ({
     }
   };
 
+  const handleClickInfoPlanUser = async (data) => {
+    try {
+      const { nombre, apellido, emailUsuario } = data;
+
+      if (!nombre || !apellido || !emailUsuario) {
+        return alert(
+          "Algun campo esta vacio, por favor completa el formulario."
+        );
+      }
+
+      const result = await clientAxios.post(
+        `/planesgym/agregarInfoPlanUser/${params.idPlan}`,
+        {
+          nombre,
+          apellido,
+          emailUsuario,
+        },
+        configHeaders
+      );
+
+      if (result.status === 200) {
+        alert(`${result.data.msg}`);
+        reset();
+      }
+    } catch (error) {
+      alert(`${error.response.data.msg}`);
+      reset();
+    }
+  };
+
   useEffect(() => {
     setInfoProductos((prevState) => ({
       ...prevState,
@@ -710,13 +741,15 @@ const FormC = ({
                 ? handleClickCancelarReserva
                 : handleClickReserva
               : handleSubmit(
-                  idPage === "registro" ? handleClickRegister : handleCLickLogin
+                  idPage === "registro"
+                    ? handleClickRegister
+                    : idPage === "planes"
+                    ? handleClickInfoPlanUser
+                    : handleCLickLogin
                 )
           }
         >
-          {(idPage === "registro" ||
-            idPage === "planes" ||
-            idPage === "contacto") && (
+          {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="form-nombre">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
@@ -742,9 +775,7 @@ const FormC = ({
               </Form.Text>
             </Form.Group>
           )}
-          {(idPage === "registro" ||
-            idPage === "planes" ||
-            idPage === "contacto") && (
+          {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="form-apellido">
               <Form.Label>Apellido</Form.Label>
               <Form.Control
@@ -767,9 +798,7 @@ const FormC = ({
               </Form.Text>
             </Form.Group>
           )}
-          {(idPage === "registro" ||
-            idPage === "planes" ||
-            idPage === "contacto") && (
+          {(idPage === "registro" || idPage === "planes") && (
             <Form.Group className="mb-3" controlId="form-email">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -1483,19 +1512,23 @@ const FormC = ({
                 ? "Iniciar"
                 : idPage === "reserva"
                 ? `${tieneReserva ? "Cancelar Reserva" : "Reservar"}`
+                : idPage === "planes"
+                ? "Enviar datos"
                 : idPage === "adminCrearProfes" ||
-                  "adminCrearClases" ||
-                  "adminCrearIndumentarias" ||
-                  "adminCrearSuplementos" ||
-                  "adminCrearUsuarios"
+                  idPage === "adminCrearClases" ||
+                  idPage === "adminCrearIndumentarias" ||
+                  idPage === "adminCrearSuplementos" ||
+                  idPage === "adminCrearUsuarios" ||
+                  idPage === "adminCrearPlanes"
                 ? "Agregar"
                 : idPage === "adminSuplementos" ||
-                  "adminIndumentarias" ||
-                  "adminClases" ||
-                  "adminUsuarios" ||
-                  "adminProfes"
+                  idPage === "adminIndumentarias" ||
+                  idPage === "adminClases" ||
+                  idPage === "adminUsuarios" ||
+                  idPage === "adminProfes" ||
+                  idPage === "adminPlanes"
                 ? "Guardar"
-                : "Enviar datos"}
+                : ""}
             </Button>
           </div>
         </Form>

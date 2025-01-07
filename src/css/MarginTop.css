@@ -38,6 +38,10 @@
   margin-top: 170px;
 }
 
+.margin-top-info-plan-user {
+  margin-top: 180px;
+}
+
 @media (max-width: 548px) {
   .margin-top-infogym {
     margin-top: 200px;
