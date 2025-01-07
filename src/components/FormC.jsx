@@ -1046,7 +1046,6 @@ const FormC = ({
                   type="file"
                   name="imagen"
                   onChange={handleClases}
-                  required
                 />
               </Form.Group>
 
@@ -1336,7 +1335,6 @@ const FormC = ({
                   type="file"
                   name="imagen"
                   onChange={handleProfes}
-                  required
                 />
               </Form.Group>
 
