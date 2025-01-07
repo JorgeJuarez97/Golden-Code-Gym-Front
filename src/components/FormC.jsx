@@ -959,7 +959,6 @@ const FormC = ({
                   type="file"
                   name="imagen"
                   onChange={handleProductos}
-                  required
                 />
               </Form.Group>
 
