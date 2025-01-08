@@ -50,7 +50,7 @@ const ReservasClases = () => {
                 <ListGroup.Item key={index} variant="ligth">
                   <strong>Cliente:</strong> {user.nombreUsuario}
                   <Button
-                    className="mx-3"
+                    className="mx-3 my-2"
                     variant="danger"
                     onClick={() => eliminarReserva(clase._id, user._id)}
                   >
